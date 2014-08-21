@@ -28,6 +28,7 @@ private:
     void populateLists(QVector<QFileInfo>);
     void setNewDimensions(SelectItem*);
     void setupAspectRatio(bool);
+    QImage rotateImage(QImage*);
 
 private slots:
     void browseInput();

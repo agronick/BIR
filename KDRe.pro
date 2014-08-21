@@ -17,10 +17,12 @@ TARGET.EPOCHEAPSIZE = 0x020000 0x1000000
 
 SOURCES += main.cpp\
         kdre.cpp \
-    selectitem.cpp
+    selectitem.cpp \
+    dolphinmenu.cpp
 
 HEADERS  += kdre.h \
-    selectitem.h
+    selectitem.h \
+    dolphinmenu.h
 
 FORMS    += kdre.ui
 

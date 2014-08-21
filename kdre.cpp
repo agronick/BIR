@@ -7,6 +7,7 @@
 #include <QListWidgetItem>
 #include "selectitem.h"
 #include <QWidgetItem>
+#include <QTransform>
 
 
 KDRe::KDRe(QWidget *parent) :
@@ -57,7 +58,7 @@ void KDRe::browseInput()
         }else{
             QVector<QFileInfo> file;
             file.append(QFileInfo(item));
-            KDRe::populateLists(file);
+            this->populateLists(file);
         }
     }
 }
@@ -161,6 +162,11 @@ void KDRe::resetUi()
     ui->fileList->clear();
     ui->inputFile->setText("");
     ui->outputFile->setText("");
+    ui->rotation->setCurrentIndex(0);
+    ui->aspectRatio->setCurrentIndex(0);
+    ui->useDir->setChecked(false);
+    ui->widthEdit->setText("");
+    ui->heightEdit->setText("");
 }
 
 void KDRe::removeItem()
@@ -209,14 +215,13 @@ void KDRe::startResize()
     }
 
     SelectItem * item;
-    QImage* origImage;
     QImage image;
         for(int i = 0; i < ui->fileList->count(); i ++)
         {
             item = dynamic_cast<SelectItem *>(ui->fileList->item(i));
             if(ui->percentageRadio->isChecked())
             {
-                KDRe::setNewDimensions(item);
+                this->setNewDimensions(item);
             }else{
                 item->newHeight = ui->heightEdit->text().toInt();
                 item->newWidth = ui->widthEdit->text().toInt();
@@ -226,15 +231,27 @@ void KDRe::startResize()
     for(int i = 0; i < ui->fileList->count(); i ++)
     {
         item = dynamic_cast<SelectItem *>(ui->fileList->item(i));
-        origImage =  item->getImage();
-        image = origImage->scaled(item->newWidth, item->newHeight, aspectRatio, Qt::SmoothTransformation);
-        image.save(ui->outputFile->text() + "/" + item->text());
+        image = QImage(item->path).scaled(item->newWidth, item->newHeight, aspectRatio, Qt::SmoothTransformation);
 
-        delete origImage;
+        if(ui->rotation->currentIndex() != 0)
+        {
+            image = this->rotateImage(&image);
+        }
+
+        image.save(ui->outputFile->text() + "/" + item->text());
 
         ui->progressBar->setValue((i / (float)ui->fileList->count()) * 100.0);
     }
     ui->progressBar->setValue(0);
+}
+
+QImage KDRe::rotateImage(QImage* image)
+{
+    int deg = (ui->rotation->currentIndex() * 90);
+
+    QTransform transform;
+    transform.rotate(deg);
+    return image->transformed(transform);
 }
 
 void KDRe::setupAspectRatio(bool pixelResize)

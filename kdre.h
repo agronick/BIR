@@ -1,5 +1,10 @@
 #ifndef KDRE_H
 #define KDRE_H
+#define CRP_CTR 0
+#define CRP_TOP_LEFT  1
+#define CRP_TOP_RIGHT 2
+#define CRP_BOT_LEFT 3
+#define CRP_BOT_RIGHT 4
 
 #include <QMainWindow>
 #include <QtGui/QPushButton>
@@ -17,6 +22,8 @@ class KDRe : public QMainWindow
 
 public:
     explicit KDRe(QWidget *parent = 0);
+    void populateLists(QVector<QFileInfo>);
+    QVector<QFileInfo> buildListFromDir(QString);
     ~KDRe();
 
 private:
@@ -24,11 +31,12 @@ private:
     QPushButton *m_browse_in;
     QPushButton *m_browse_out;
     QStringList browseDialog(bool);
-    QVector<QFileInfo> buildListFromDir(QString);
-    void populateLists(QVector<QFileInfo>);
     void setNewDimensions(SelectItem*);
+    void setNewDimensions();
     void setupAspectRatio(bool);
     QImage rotateImage(QImage*);
+    QImage cropImage(QImage*, int, int);
+    void pixelOff(bool);
 
 private slots:
     void browseInput();
@@ -40,6 +48,7 @@ private slots:
     void removeItem();
     void selectImage();
     void startResize();
+    void aspectRatioChange(int);
 };
 
 

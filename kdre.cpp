@@ -25,6 +25,7 @@ KDRe::KDRe(QWidget *parent) :
     connect(ui->removeItem, SIGNAL(released()), this, SLOT(removeItem()));
     connect(ui->fileList, SIGNAL(currentRowChanged(int)), this, SLOT(selectImage()));
     connect(ui->startResize, SIGNAL(clicked()), this, SLOT(startResize()));
+    connect(ui->aspectRatio, SIGNAL(currentIndexChanged(int)), this, SLOT(aspectRatioChange(int)));
     ui->percentageRadio->click();
 
     ui->titleIcon->setStyleSheet("background-image: url(:/icon/icon); background-repeat:no-repeat; padding-left: 70px");
@@ -40,7 +41,7 @@ KDRe::~KDRe()
 
 void KDRe::browseInput()
 {
-    QStringList dir = KDRe::browseDialog(true);
+    QStringList dir = browseDialog(true);
     if(dir.isEmpty())
         return;
 
@@ -54,7 +55,7 @@ void KDRe::browseInput()
     {
         if(QDir(item).exists())
         {
-            KDRe::populateLists(KDRe::buildListFromDir(item));
+            populateLists(buildListFromDir(item));
         }else{
             QVector<QFileInfo> file;
             file.append(QFileInfo(item));
@@ -65,7 +66,7 @@ void KDRe::browseInput()
 
 void KDRe::browseOutput()
 {
-    QStringList dirl = KDRe::browseDialog(false);
+    QStringList dirl = browseDialog(false);
 
     if(dirl.isEmpty())
         return;
@@ -75,10 +76,8 @@ void KDRe::browseOutput()
 
 QVector<QFileInfo> KDRe::buildListFromDir(QString dir)
 {
-
-
     QVector<QFileInfo> files;
-    QDirIterator dirIt(dir, QDirIterator::NoIteratorFlags);
+    QDirIterator dirIt(dir, (ui->useSubdirectories->isVisible() && ui->useSubdirectories->isChecked() ? QDirIterator::Subdirectories : QDirIterator::NoIteratorFlags));
     while (dirIt.hasNext()) {
         dirIt.next();
         if (QFileInfo(dirIt.filePath()).isFile())
@@ -115,7 +114,12 @@ void KDRe::populateLists(QVector<QFileInfo> items)
     for(int i = 0; i < items.count(); i++)
     {
         QString path = items.at(i).absoluteFilePath();
-        QList<QListWidgetItem*> list = ui->fileList->findItems(path, Qt::MatchContains);
+        QString name = items.at(i).fileName();
+
+        QList<QListWidgetItem*> list = ui->fileList->findItems(name, Qt::MatchContains);
+        if(!list.empty())
+            continue;
+
 
         for(int j=0; j < 3; j++)
         {
@@ -123,7 +127,7 @@ void KDRe::populateLists(QVector<QFileInfo> items)
             if(items.at(i).suffix().toLower() == extensions[j]) //Check if the item is not already there
             {
                 fileItem = new SelectItem(path);
-                fileItem->setText(items.at(i).fileName());
+                fileItem->setText(name);
                 ui->fileList->addItem(fileItem);
             }
         }
@@ -133,28 +137,30 @@ void KDRe::populateLists(QVector<QFileInfo> items)
     ui->progressBar->setValue(0);
 }
 
+
 void KDRe::pixelResize()
 {
-    ui->heightEdit->setEnabled(true);
-    ui->widthEdit->setEnabled(true);
-    ui->sizeSlider->setVisible(false);
-    ui->sliderLabel->setVisible(false);
-    KDRe::setupAspectRatio(true);
+    pixelOff(true);
 }
 
 void KDRe::ratioResize()
 {
-    ui->widthEdit->setEnabled(false);
-    ui->heightEdit->setEnabled(false);
-    ui->sizeSlider->setVisible(true);
-    ui->sliderLabel->setVisible(true);
-    KDRe::setupAspectRatio(false);
+    pixelOff(false);
+}
+
+void KDRe::pixelOff(bool on)
+{
+    ui->widthEdit->setEnabled(on);
+    ui->heightEdit->setEnabled(on);
+    ui->cropMode->setEnabled(on);
+    ui->sizeModePager->setCurrentIndex(on ? 1 : 0);
+    setupAspectRatio(on);
 }
 
 void KDRe::sliderMoved(int value)
 {
     ui->sliderLabel->setText(QString::number(value).append("%"));
-    KDRe::selectImage();
+    selectImage();
 }
 
 void KDRe::resetUi()
@@ -164,9 +170,15 @@ void KDRe::resetUi()
     ui->outputFile->setText("");
     ui->rotation->setCurrentIndex(0);
     ui->aspectRatio->setCurrentIndex(0);
+    ui->cropMode->setCurrentIndex(0);
     ui->useDir->setChecked(false);
     ui->widthEdit->setText("");
     ui->heightEdit->setText("");
+}
+
+void KDRe::aspectRatioChange(int item)
+{
+    ui->cropMode->setEnabled(item == 2);
 }
 
 void KDRe::removeItem()
@@ -211,9 +223,44 @@ void KDRe::startResize()
             aspectRatio = Qt::KeepAspectRatio;
             break;
         case 2:
+        default:
             aspectRatio = Qt::KeepAspectRatioByExpanding;
     }
 
+    setNewDimensions();
+
+    SelectItem * item;
+    QImage image;
+    for(int i = 0; i < ui->fileList->count(); i ++)
+    {
+        item = dynamic_cast<SelectItem *>(ui->fileList->item(i));
+        image = QImage(item->path);
+
+        //Rotate Image
+        if(ui->rotation->currentIndex() != 0)
+        {
+            image = this->rotateImage(&image);
+        }
+
+        //Resize Image
+        image = image.scaled(item->newWidth, item->newHeight, aspectRatio, Qt::SmoothTransformation);
+
+        //Crop Image
+        if(ui->aspectRatio->currentIndex() == 2)
+        {
+            image = this->cropImage(&image, item->newWidth, item->newHeight);
+        }
+
+        //Save Image
+        image.save(ui->outputFile->text() + "/" + item->text());
+
+        ui->progressBar->setValue((i / (float)ui->fileList->count()) * 100.0);
+    }
+    ui->progressBar->setValue(0);
+}
+
+void KDRe::setNewDimensions()
+{
     SelectItem * item;
     QImage image;
         for(int i = 0; i < ui->fileList->count(); i ++)
@@ -227,22 +274,6 @@ void KDRe::startResize()
                 item->newWidth = ui->widthEdit->text().toInt();
             }
         }
-
-    for(int i = 0; i < ui->fileList->count(); i ++)
-    {
-        item = dynamic_cast<SelectItem *>(ui->fileList->item(i));
-        image = QImage(item->path).scaled(item->newWidth, item->newHeight, aspectRatio, Qt::SmoothTransformation);
-
-        if(ui->rotation->currentIndex() != 0)
-        {
-            image = this->rotateImage(&image);
-        }
-
-        image.save(ui->outputFile->text() + "/" + item->text());
-
-        ui->progressBar->setValue((i / (float)ui->fileList->count()) * 100.0);
-    }
-    ui->progressBar->setValue(0);
 }
 
 QImage KDRe::rotateImage(QImage* image)
@@ -254,15 +285,52 @@ QImage KDRe::rotateImage(QImage* image)
     return image->transformed(transform);
 }
 
+QImage KDRe::cropImage(QImage * image, int width, int height)
+{
+    int x,y;
+    int iHeight = height;
+    int iWidth = width;
+    int nHeight = image->height();
+    int nWidth = image->width();
+
+    switch(ui->cropMode->currentIndex())
+    {
+        case CRP_CTR:
+             x = (nWidth / 2)  - (iWidth / 2);
+             y = (nHeight / 2) - (iHeight / 2);
+        break;
+        case CRP_TOP_LEFT:
+            x = 0;
+            y = 0;
+        break;
+        case CRP_TOP_RIGHT:
+            x = iWidth - nWidth;
+            y = 0;
+        break;
+        case CRP_BOT_LEFT:
+            x = 0;
+            y = nHeight - iHeight;
+        break;
+        case CRP_BOT_RIGHT:
+            x = nWidth - iWidth;
+            y = nHeight - iHeight;
+        break;
+    }
+
+    return image->copy(x,y,width,height);
+}
+
 void KDRe::setupAspectRatio(bool pixelResize)
 {
     ui->aspectRatio->clear();
     if(pixelResize)
     {
         ui->aspectRatio->addItem("Ignore aspect ratio");
-        ui->aspectRatio->addItem("Preserve aspect ratio and use smaller dimension");
-        ui->aspectRatio->addItem("Preserve aspect ratio and use larger dimension");
+        ui->aspectRatio->addItem("Preserve aspect ratio inside dimensions");
+        ui->aspectRatio->addItem("Preserve aspect ratio and crop");
+        ui->pixelRadio->setChecked(true);
     }else{
         ui->aspectRatio->addItem("Preserve aspect ratio");
+        ui->percentageRadio->setChecked(true);
     }
 }

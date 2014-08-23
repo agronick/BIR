@@ -8,6 +8,7 @@
 #include "selectitem.h"
 #include <QWidgetItem>
 #include <QTransform>
+#include <QMessageBox>;
 
 
 KDRe::KDRe(QWidget *parent) :
@@ -56,9 +57,22 @@ void KDRe::browseInput()
 
     for(QString item : dir)
     {
+        checkAgain:
         if(QDir(item).exists())
         {
             populateLists(buildListFromDir(item));
+            if(ui->fileList->count() == 0)
+            {
+                int ret = QMessageBox::question(this,
+                                                "No Files Selected",
+                                                "You did not select any files. Did you want to include subdirectories?",
+                                                QMessageBox::Yes | QMessageBox::No);
+                if(ret == QMessageBox::Yes)
+                {
+                    ui->useSubdirectories->setChecked(true);
+                    goto checkAgain;
+                }
+            }
         }else{
             QVector<QFileInfo> file;
             file.append(QFileInfo(item));
@@ -217,13 +231,14 @@ void KDRe::startResize()
 {
     int dirDiffIndex = -1;
 
-    if(!QDir(ui->outputFile->text()).exists())
-        return;
-
     //Get this ahead of time because the difference between directories does not need
     //to be found with each file
     if(ui->dirStruct->isChecked())
+    {
         dirDiffIndex = getDiffDirIndex();
+    }else{
+        QDir().mkdir(ui->outputFile->text());
+    }
 
     Qt::AspectRatioMode aspectRatio;
     switch(ui->aspectRatio->currentIndex())
@@ -263,9 +278,16 @@ void KDRe::startResize()
             image = this->cropImage(&image, item->newWidth, item->newHeight);
         }
 
+        //Append text
+        QString appendText = "";
+        if(ui->appendFileChk->isChecked())
+        {
+            appendText = ui->appendFileTxt->text();
+        }
+
         //Save Image
         QString subDir = getItemSubdir(item, dirDiffIndex);
-        image.save(subDir + item->text());
+        image.save(subDir + appendText + item->text());
 
         ui->progressBar->setValue((i / (float)ui->fileList->count()) * 100.0);
     }
@@ -336,7 +358,7 @@ QImage KDRe::cropImage(QImage * image, int width, int height)
 QString KDRe::getItemSubdir(SelectItem* item, int diffIndex)
 {
     if(diffIndex < 1)
-        ui->outputFile->text();
+        return ui->outputFile->text() + "/";
 
      QString dir =  QFileInfo(item->path).absoluteDir().absolutePath();
      dir = ui->outputFile->text() + dir.remove(0, diffIndex);

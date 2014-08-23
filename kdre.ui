@@ -33,338 +33,6 @@
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGroupBox" name="groupBox">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>170</y>
-      <width>331</width>
-      <height>231</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <widget class="QRadioButton" name="pixelRadio">
-     <property name="geometry">
-      <rect>
-       <x>220</x>
-       <y>20</y>
-       <width>95</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Size</string>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="percentageRadio">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>20</y>
-       <width>95</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Percentage</string>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>81</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Resize by</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>80</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Aspect Ratio</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="aspectRatio">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>100</y>
-       <width>301</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>180</y>
-       <width>71</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Rotation</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="rotation">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>200</y>
-       <width>301</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <item>
-      <property name="text">
-       <string>0°</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>90°</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>180°</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>270°</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>130</y>
-       <width>301</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Crop</string>
-     </property>
-     <property name="buddy">
-      <cstring>cropMode</cstring>
-     </property>
-    </widget>
-    <widget class="QStackedWidget" name="sizeModePager">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>311</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="currentIndex">
-      <number>1</number>
-     </property>
-     <widget class="QWidget" name="page">
-      <widget class="QSlider" name="sizeSlider">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>10</y>
-         <width>261</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="minimum">
-        <number>2</number>
-       </property>
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="value">
-        <number>100</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-      <widget class="QLabel" name="sliderLabel">
-       <property name="geometry">
-        <rect>
-         <x>270</x>
-         <y>10</y>
-         <width>41</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>100%</string>
-       </property>
-       <property name="buddy">
-        <cstring>sizeSlider</cstring>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="page_2">
-      <widget class="QLabel" name="label_3">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>10</y>
-         <width>55</width>
-         <height>15</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Width</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="heightEdit">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>190</x>
-         <y>10</y>
-         <width>61</width>
-         <height>21</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_4">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>10</y>
-         <width>55</width>
-         <height>15</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Height</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="widthEdit">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>10</y>
-         <width>61</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <zorder>label_3</zorder>
-      <zorder>label_3</zorder>
-      <zorder>heightEdit</zorder>
-      <zorder>label_4</zorder>
-      <zorder>widthEdit</zorder>
-     </widget>
-    </widget>
-    <widget class="QComboBox" name="cropMode">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>150</y>
-       <width>301</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <item>
-      <property name="text">
-       <string>Crop to Center</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Crop to Top Left</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Crop to Top Right</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Crop to Bottom Left</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Crop to Bottom Right</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>130</y>
-       <width>121</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>8</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>(Requires aspect ratio)</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </widget>
    <widget class="QPushButton" name="startResize">
     <property name="geometry">
      <rect>
@@ -410,7 +78,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>430</y>
+      <y>440</y>
       <width>671</width>
       <height>23</height>
      </rect>
@@ -590,7 +258,7 @@
       <x>20</x>
       <y>150</y>
       <width>311</width>
-      <height>251</height>
+      <height>281</height>
      </rect>
     </property>
     <property name="title">
@@ -600,7 +268,7 @@
      <property name="geometry">
       <rect>
        <x>60</x>
-       <y>220</y>
+       <y>250</y>
        <width>52</width>
        <height>14</height>
       </rect>
@@ -613,7 +281,7 @@
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>210</y>
+       <y>240</y>
        <width>30</width>
        <height>24</height>
       </rect>
@@ -626,7 +294,7 @@
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>220</y>
+       <y>250</y>
        <width>52</width>
        <height>14</height>
       </rect>
@@ -639,7 +307,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>220</y>
+       <y>250</y>
        <width>52</width>
        <height>14</height>
       </rect>
@@ -652,7 +320,7 @@
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>220</y>
+       <y>250</y>
        <width>52</width>
        <height>14</height>
       </rect>
@@ -667,31 +335,424 @@
        <x>10</x>
        <y>30</y>
        <width>291</width>
-       <height>181</height>
+       <height>201</height>
       </rect>
      </property>
     </widget>
-    <zorder>label_12</zorder>
-    <zorder>removeItem</zorder>
-    <zorder>label_11</zorder>
-    <zorder>label_9</zorder>
-    <zorder>fileList</zorder>
-    <zorder>label_10</zorder>
-    <zorder>label_10</zorder>
-    <zorder>removeItem</zorder>
-    <zorder>label_11</zorder>
-    <zorder>label_9</zorder>
-    <zorder>label_12</zorder>
-    <zorder>fileList</zorder>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>170</y>
+      <width>331</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="imageTab">
+     <attribute name="title">
+      <string>Image Settings</string>
+     </attribute>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>331</width>
+        <height>231</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <widget class="QRadioButton" name="pixelRadio">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>20</y>
+         <width>95</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Size</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="percentageRadio">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>20</y>
+         <width>95</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Percentage</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_5">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>81</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Resize by</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_6">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>111</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Aspect Ratio</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="aspectRatio">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>301</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>180</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Rotation</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="rotation">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>200</y>
+         <width>301</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <item>
+        <property name="text">
+         <string>0°</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>90°</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>180°</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>270°</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>301</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Crop</string>
+       </property>
+       <property name="buddy">
+        <cstring>cropMode</cstring>
+       </property>
+      </widget>
+      <widget class="QStackedWidget" name="sizeModePager">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>40</y>
+         <width>311</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="page">
+        <widget class="QSlider" name="sizeSlider">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>10</y>
+           <width>261</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="minimum">
+          <number>2</number>
+         </property>
+         <property name="maximum">
+          <number>100</number>
+         </property>
+         <property name="value">
+          <number>100</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QLabel" name="sliderLabel">
+         <property name="geometry">
+          <rect>
+           <x>270</x>
+           <y>10</y>
+           <width>41</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>100%</string>
+         </property>
+         <property name="buddy">
+          <cstring>sizeSlider</cstring>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="page_2">
+        <widget class="QLabel" name="label_3">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>10</y>
+           <width>55</width>
+           <height>15</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Width</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="heightEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>190</x>
+           <y>10</y>
+           <width>61</width>
+           <height>21</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_4">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>10</y>
+           <width>55</width>
+           <height>15</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Height</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="widthEdit">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>10</y>
+           <width>61</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="readOnly">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QComboBox" name="cropMode">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>150</y>
+         <width>301</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Crop to Center</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Crop to Top Left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Crop to Top Right</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Crop to Bottom Left</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Crop to Bottom Right</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>130</y>
+         <width>121</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>(Requires aspect ratio)</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="fileTab">
+     <attribute name="title">
+      <string>File Settings</string>
+     </attribute>
+     <widget class="QCheckBox" name="appendFileChk">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>181</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Append text to file name</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="appendFileTxt">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>301</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="dirStruct">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>291</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Preserve directory structure</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>301</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Overwrite files if they exist</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <zorder>startResize</zorder>
    <zorder>resetList</zorder>
    <zorder>progressBar</zorder>
    <zorder>titleIcon</zorder>
    <zorder>groupBox</zorder>
-   <zorder>groupBox</zorder>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox_3</zorder>
+   <zorder>tabWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -699,7 +760,7 @@
      <x>0</x>
      <y>0</y>
      <width>696</width>
-     <height>19</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -725,12 +786,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>417</x>
-     <y>270</y>
+     <x>419</x>
+     <y>296</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
-     <y>415</y>
+     <y>445</y>
     </hint>
    </hints>
   </connection>
@@ -741,12 +802,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>563</x>
-     <y>268</y>
+     <x>565</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>242</x>
-     <y>410</y>
+     <y>440</y>
     </hint>
    </hints>
   </connection>
@@ -763,6 +824,22 @@
     <hint type="destinationlabel">
      <x>198</x>
      <y>139</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>appendFileChk</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>appendFileTxt</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>441</x>
+     <y>252</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>443</x>
+     <y>276</y>
     </hint>
    </hints>
   </connection>

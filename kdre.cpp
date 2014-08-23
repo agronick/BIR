@@ -30,6 +30,9 @@ KDRe::KDRe(QWidget *parent) :
 
     ui->titleIcon->setStyleSheet("background-image: url(:/icon/icon); background-repeat:no-repeat; padding-left: 70px");
 
+    QIntValidator* numeric = new QIntValidator(0, 10000, this);
+    ui->heightEdit->setValidator(numeric);
+    ui->widthEdit->setValidator(numeric);
 }
 
 
@@ -116,10 +119,12 @@ void KDRe::populateLists(QVector<QFileInfo> items)
         QString path = items.at(i).absoluteFilePath();
         QString name = items.at(i).fileName();
 
-        QList<QListWidgetItem*> list = ui->fileList->findItems(name, Qt::MatchContains);
-        if(!list.empty())
-            continue;
-
+        if(!ui->dirStruct->isChecked())
+        {
+            QList<QListWidgetItem*> list = ui->fileList->findItems(name, Qt::MatchContains);
+            if(!list.empty())
+                continue;
+        }
 
         for(int j=0; j < 3; j++)
         {
@@ -210,8 +215,15 @@ void KDRe::setNewDimensions(SelectItem* item)
 
 void KDRe::startResize()
 {
+    int dirDiffIndex = -1;
+
     if(!QDir(ui->outputFile->text()).exists())
         return;
+
+    //Get this ahead of time because the difference between directories does not need
+    //to be found with each file
+    if(ui->dirStruct->isChecked())
+        dirDiffIndex = getDiffDirIndex();
 
     Qt::AspectRatioMode aspectRatio;
     switch(ui->aspectRatio->currentIndex())
@@ -252,7 +264,8 @@ void KDRe::startResize()
         }
 
         //Save Image
-        image.save(ui->outputFile->text() + "/" + item->text());
+        QString subDir = getItemSubdir(item, dirDiffIndex);
+        image.save(subDir + item->text());
 
         ui->progressBar->setValue((i / (float)ui->fileList->count()) * 100.0);
     }
@@ -318,6 +331,53 @@ QImage KDRe::cropImage(QImage * image, int width, int height)
     }
 
     return image->copy(x,y,width,height);
+}
+
+QString KDRe::getItemSubdir(SelectItem* item, int diffIndex)
+{
+    if(diffIndex < 1)
+        ui->outputFile->text();
+
+     QString dir =  QFileInfo(item->path).absoluteDir().absolutePath();
+     dir = ui->outputFile->text() + dir.remove(0, diffIndex);
+     QDir(dir).mkdir(dir);
+     return dir + "/";
+}
+
+int KDRe::getDiffDirIndex()
+{
+    int index = 0;
+    int limit = INT_MAX;
+
+    QString lastFile = QFileInfo(dynamic_cast<SelectItem *>(ui->fileList->item(0))->path).absoluteDir().absolutePath();
+    QString thisFile = lastFile;
+
+    //Find the last diff between all files
+    for(int i = 1; i < ui->fileList->count(); i++)
+    {
+        thisFile = QFileInfo(dynamic_cast<SelectItem *>(ui->fileList->item(i))->path).absoluteDir().absolutePath();;
+        qDebug() << thisFile;
+        qDebug() << lastFile;
+        while(index < limit
+              && thisFile.length() > index + 1 && lastFile.length() > index + 1
+              && (thisFile.at(index) == lastFile.at(index)))
+        {
+            qDebug() << "index: " <<  index << " " << thisFile.at(index + 1)  << "|" <<  lastFile.at(index + 1) << " limit:" << limit;
+            index++;
+        }
+
+
+
+        limit = index;
+        index = 0;
+        lastFile = thisFile;
+    }
+
+    //Rewind to the last diff directory
+    while(thisFile.at(limit).toAscii() != '/')
+        limit--;
+
+    return limit;
 }
 
 void KDRe::setupAspectRatio(bool pixelResize)

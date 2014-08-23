@@ -37,6 +37,8 @@ private:
     QImage rotateImage(QImage*);
     QImage cropImage(QImage*, int, int);
     void pixelOff(bool);
+    int getDiffDirIndex();
+    QString getItemSubdir(SelectItem*, int);
 
 private slots:
     void browseInput();

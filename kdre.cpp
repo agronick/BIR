@@ -29,7 +29,6 @@ KDRe::KDRe(QWidget *parent) :
     connect(ui->aspectRatio, SIGNAL(currentIndexChanged(int)), this, SLOT(aspectRatioChange(int)));
     ui->percentageRadio->click();
 
-    ui->titleIcon->setStyleSheet("background-image: url(:/icon/icon); background-repeat:no-repeat; padding-left: 70px");
 
     QIntValidator* numeric = new QIntValidator(0, 10000, this);
     ui->heightEdit->setValidator(numeric);
@@ -263,11 +262,6 @@ void KDRe::startResize()
         item = dynamic_cast<SelectItem *>(ui->fileList->item(i));
         image = QImage(item->path);
 
-        //Rotate Image
-        if(ui->rotation->currentIndex() != 0)
-        {
-            image = this->rotateImage(&image);
-        }
 
         //Resize Image
         image = image.scaled(item->newWidth, item->newHeight, aspectRatio, Qt::SmoothTransformation);
@@ -285,13 +279,25 @@ void KDRe::startResize()
             appendText = ui->appendFileTxt->text();
         }
 
+
+        //Rotate Image
+        if(ui->rotation->currentIndex() != 0)
+        {
+            image = this->rotateImage(&image);
+        }
+
         //Save Image
-        QString subDir = getItemSubdir(item, dirDiffIndex);
-        image.save(subDir + appendText + item->text());
+        QString name = getItemSubdir(item, dirDiffIndex) + appendText + item->text();
+        if(!ui->deleteExisting->isChecked() && QFile(name).exists())
+        {
+            continue;
+        }else{
+            image.save(name);
+        }
 
         ui->progressBar->setValue((i / (float)ui->fileList->count()) * 100.0);
     }
-    ui->progressBar->setValue(0);
+    ui->progressBar->setValue(100);
 }
 
 void KDRe::setNewDimensions()
@@ -384,7 +390,6 @@ int KDRe::getDiffDirIndex()
               && thisFile.length() > index + 1 && lastFile.length() > index + 1
               && (thisFile.at(index) == lastFile.at(index)))
         {
-            qDebug() << "index: " <<  index << " " << thisFile.at(index + 1)  << "|" <<  lastFile.at(index + 1) << " limit:" << limit;
             index++;
         }
 

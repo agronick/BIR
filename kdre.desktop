@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=KDRe
+Comment=Batch image manipulator
+TryExec=kdre
+Exec=kdre %F
+Icon=applications-graphics
+MimeType=image/png;image/jpg;image/gif
+Categories=Qt;KDE;Graphics;

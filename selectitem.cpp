@@ -1,6 +1,6 @@
-#include "selectitem.h"
 #include <QDebug>;
 #include <QImage>
+#include "kdre.h"
 
 int newHeight;
 int newWidth;

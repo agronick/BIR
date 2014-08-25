@@ -1,9 +1,8 @@
-#include "kdre.h"
 #include <QApplication>
 #include <iostream>
-#include "dolphinmenu.h"
 #include <QDebug>
 #include <QDir>
+#include "kdre.h"
 
 void printHelp();
 int main(int argc, char *argv[])
@@ -44,8 +43,6 @@ int main(int argc, char *argv[])
         w.populateLists(w.buildListFromDir(argv[1]));
     }
 
-    DolphinMenu install;
-    install.start();
 
     return a.exec();
 }

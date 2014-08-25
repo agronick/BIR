@@ -1,15 +1,14 @@
-#include "kdre.h"
-#include "ui_kdre.h"
-#include "QFileDialog"
-#include "QDebug"
+#include <QFileDialog>
+#include <QDebug>
 #include <QVector>
 #include <QDirIterator>
 #include <QListWidgetItem>
-#include "selectitem.h"
 #include <QWidgetItem>
 #include <QTransform>
 #include <QMessageBox>;
-
+#include "kdre.h"
+#include "ui_kdre.h"
+#include "selectitem.h"
 
 KDRe::KDRe(QWidget *parent) :
     QMainWindow(parent),

@@ -90,7 +90,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QGroupBox" name="fileInfo">
     <property name="geometry">
      <rect>
       <x>340</x>
@@ -195,7 +195,7 @@
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox_2">
+   <widget class="QGroupBox" name="addFiles">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -260,7 +260,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="groupBox_3">
+   <widget class="QGroupBox" name="fileList_2">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -364,7 +364,7 @@
      <attribute name="title">
       <string>Image Settings</string>
      </attribute>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QGroupBox" name="settings">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -779,9 +779,9 @@
    <zorder>resetList</zorder>
    <zorder>progressBar</zorder>
    <zorder>titleIcon</zorder>
-   <zorder>groupBox</zorder>
-   <zorder>groupBox_2</zorder>
-   <zorder>groupBox_3</zorder>
+   <zorder>fileInfo</zorder>
+   <zorder>addFiles</zorder>
+   <zorder>fileList_2</zorder>
    <zorder>tabWidget</zorder>
    <zorder>label_13</zorder>
   </widget>

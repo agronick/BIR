@@ -1,7 +1,7 @@
-KDRe
+BIM
 ====
 
-Batch image resizer for KDE written with Qt
+Batch image manipulator resizer for KDE written with Qt
 
 
 Simple graphical batch image resizer. Supports PNG,JPG,GIF with more formats being added. Planning on adding Dolphin integration.

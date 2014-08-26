@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>KDRe</class>
- <widget class="QMainWindow" name="KDRe">
+ <class>BIM</class>
+ <widget class="QMainWindow" name="BIM">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>KDRe - Bulk Image Manipulator</string>
+   <string>BIM - Bulk Image Manipulator</string>
   </property>
   <property name="windowIcon">
    <iconset resource="icon.qrc">
@@ -186,7 +186,7 @@
      <string notr="true">background-image: url(:/icon/icon); background-repeat:no-repeat; padding-left: 50px</string>
     </property>
     <property name="text">
-     <string>KDRe</string>
+     <string>BIM</string>
     </property>
     <property name="scaledContents">
      <bool>true</bool>

@@ -11,7 +11,7 @@ QT += core
 QMAKE_CXXFLAGS += -std=c++11
 
 
-TARGET = kdre
+TARGET = bim
 TEMPLATE = app
 TARGET.EPOCHEAPSIZE = 0x020000 0x1000000
 
@@ -19,13 +19,13 @@ TARGET.EPOCHEAPSIZE = 0x020000 0x1000000
 INSTALLS += target desktop
 
 SOURCES += main.cpp\
-        kdre.cpp \
+        bim.cpp \
     selectitem.cpp
 
-HEADERS  += kdre.h \
+HEADERS  += bim.h \
     selectitem.h
 
-FORMS    += kdre.ui
+FORMS    += bim.ui
 
 RESOURCES += \
     icon.qrc
@@ -33,4 +33,4 @@ RESOURCES += \
 
 target.path = /usr/local/bin
 desktop.path = /usr/share/applications
-desktop.files += kdre.desktop
+desktop.files += bim.desktop

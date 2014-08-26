@@ -6,13 +6,13 @@
 #include <QWidgetItem>
 #include <QTransform>
 #include <QMessageBox>;
-#include "kdre.h"
-#include "ui_kdre.h"
+#include "bim.h"
+#include "ui_bim.h"
 #include "selectitem.h"
 
-KDRe::KDRe(QWidget *parent) :
+BIM::BIM(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::KDRe)
+    ui(new Ui::BIM)
 {
     ui->setupUi(this);
 
@@ -36,12 +36,12 @@ KDRe::KDRe(QWidget *parent) :
 
 
 
-KDRe::~KDRe()
+BIM::~BIM()
 {
     delete ui;
 }
 
-void KDRe::browseInput()
+void BIM::browseInput()
 {
     QStringList dir = browseDialog(true);
     if(dir.isEmpty())
@@ -79,7 +79,7 @@ void KDRe::browseInput()
     }
 }
 
-void KDRe::browseOutput()
+void BIM::browseOutput()
 {
     QStringList dirl = browseDialog(false);
 
@@ -89,7 +89,7 @@ void KDRe::browseOutput()
     ui->outputFile->setText(dirl[0]);
 }
 
-QVector<QFileInfo> KDRe::buildListFromDir(QString dir)
+QVector<QFileInfo> BIM::buildListFromDir(QString dir)
 {
     QVector<QFileInfo> files;
     QDirIterator dirIt(dir, (ui->useSubdirectories->isVisible() && ui->useSubdirectories->isChecked() ? QDirIterator::Subdirectories : QDirIterator::NoIteratorFlags));
@@ -102,7 +102,7 @@ QVector<QFileInfo> KDRe::buildListFromDir(QString dir)
 }
 
 
-QStringList KDRe::browseDialog(bool isInput)
+QStringList BIM::browseDialog(bool isInput)
 {
     QFileDialog *dialog = new QFileDialog(this);
 
@@ -121,7 +121,7 @@ QStringList KDRe::browseDialog(bool isInput)
 }
 
 
-void KDRe::populateLists(QVector<QFileInfo> items)
+void BIM::populateLists(QVector<QFileInfo> items)
 {
     QString extensions[] = {"png", "jpg", "gif"};
 
@@ -155,17 +155,17 @@ void KDRe::populateLists(QVector<QFileInfo> items)
 }
 
 
-void KDRe::pixelResize()
+void BIM::pixelResize()
 {
     pixelOff(true);
 }
 
-void KDRe::ratioResize()
+void BIM::ratioResize()
 {
     pixelOff(false);
 }
 
-void KDRe::pixelOff(bool on)
+void BIM::pixelOff(bool on)
 {
     ui->widthEdit->setEnabled(on);
     ui->heightEdit->setEnabled(on);
@@ -174,13 +174,13 @@ void KDRe::pixelOff(bool on)
     setupAspectRatio(on);
 }
 
-void KDRe::sliderMoved(int value)
+void BIM::sliderMoved(int value)
 {
     ui->sliderLabel->setText(QString::number(value).append("%"));
     selectImage();
 }
 
-void KDRe::resetUi()
+void BIM::resetUi()
 {
     ui->fileList->clear();
     ui->inputFile->setText("");
@@ -193,17 +193,17 @@ void KDRe::resetUi()
     ui->heightEdit->setText("");
 }
 
-void KDRe::aspectRatioChange(int item)
+void BIM::aspectRatioChange(int item)
 {
     ui->cropMode->setEnabled(item == 2);
 }
 
-void KDRe::removeItem()
+void BIM::removeItem()
 {
     ui->fileList->takeItem(ui->fileList->currentRow());
 }
 
-void KDRe::selectImage()
+void BIM::selectImage()
 {
     SelectItem * item = dynamic_cast<SelectItem *>(ui->fileList->currentItem());
     if(item == NULL)
@@ -211,21 +211,21 @@ void KDRe::selectImage()
 
     if(ui->percentageRadio->isChecked())
     {
-        KDRe::setNewDimensions(item);
+        BIM::setNewDimensions(item);
     //    qDebug()<< QString::number(item->width()) + "Row: " + QString::number(ui->fileList->currentRow());
         ui->widthEdit->setText(QString::number(item->newWidth));
         ui->heightEdit->setText(QString::number(item->newHeight));
     }
 }
 
-void KDRe::setNewDimensions(SelectItem* item)
+void BIM::setNewDimensions(SelectItem* item)
 {
     float ratio = ui->sizeSlider->value() * 0.01;
     item->newWidth = (item->width() * ratio);
     item->newHeight = (item->height() * ratio);
 }
 
-void KDRe::startResize()
+void BIM::startResize()
 {
     int dirDiffIndex = -1;
 
@@ -299,7 +299,7 @@ void KDRe::startResize()
     ui->progressBar->setValue(100);
 }
 
-void KDRe::setNewDimensions()
+void BIM::setNewDimensions()
 {
     SelectItem * item;
     QImage image;
@@ -316,7 +316,7 @@ void KDRe::setNewDimensions()
         }
 }
 
-QImage KDRe::rotateImage(QImage* image)
+QImage BIM::rotateImage(QImage* image)
 {
     int deg = (ui->rotation->currentIndex() * 90);
 
@@ -325,7 +325,7 @@ QImage KDRe::rotateImage(QImage* image)
     return image->transformed(transform);
 }
 
-QImage KDRe::cropImage(QImage * image, int width, int height)
+QImage BIM::cropImage(QImage * image, int width, int height)
 {
     int x,y;
     int iHeight = height;
@@ -360,7 +360,7 @@ QImage KDRe::cropImage(QImage * image, int width, int height)
     return image->copy(x,y,width,height);
 }
 
-QString KDRe::getItemSubdir(SelectItem* item, int diffIndex)
+QString BIM::getItemSubdir(SelectItem* item, int diffIndex)
 {
     if(diffIndex < 1)
         return ui->outputFile->text() + "/";
@@ -371,7 +371,7 @@ QString KDRe::getItemSubdir(SelectItem* item, int diffIndex)
      return dir + "/";
 }
 
-int KDRe::getDiffDirIndex()
+int BIM::getDiffDirIndex()
 {
     int index = 0;
     int limit = INT_MAX;
@@ -406,7 +406,7 @@ int KDRe::getDiffDirIndex()
     return limit;
 }
 
-void KDRe::setupAspectRatio(bool pixelResize)
+void BIM::setupAspectRatio(bool pixelResize)
 {
     ui->aspectRatio->clear();
     if(pixelResize)

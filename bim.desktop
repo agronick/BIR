@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=KDRe
+Name=BIM
 Comment=Batch image manipulator
 TryExec=kdre
 Exec=kdre %F

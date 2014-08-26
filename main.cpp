@@ -2,14 +2,14 @@
 #include <iostream>
 #include <QDebug>
 #include <QDir>
-#include "kdre.h"
+#include "bim.h"
 
 void printHelp();
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    KDRe w;
+    BIM w;
     QString loadDir = "";
 
     if(argc > 1)

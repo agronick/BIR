@@ -13,21 +13,21 @@
 #include "selectitem.h"
 
 namespace Ui {
-class KDRe;
+class BIM;
 }
 
-class KDRe : public QMainWindow
+class BIM : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit KDRe(QWidget *parent = 0);
+    explicit BIM(QWidget *parent = 0);
     void populateLists(QVector<QFileInfo>);
     QVector<QFileInfo> buildListFromDir(QString);
-    ~KDRe();
+    ~BIM();
 
 private:
-    Ui::KDRe *ui;
+    Ui::BIM *ui;
     QPushButton *m_browse_in;
     QPushButton *m_browse_out;
     QStringList browseDialog(bool);

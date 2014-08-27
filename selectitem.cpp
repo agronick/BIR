@@ -1,6 +1,6 @@
 #include <QDebug>;
 #include <QImage>
-#include "bim.h"
+#include "bir.h"
 
 int newHeight;
 int newWidth;

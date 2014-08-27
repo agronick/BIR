@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>BIM</class>
- <widget class="QMainWindow" name="BIM">
+ <class>BIR</class>
+ <widget class="QMainWindow" name="BIR">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>BIM - Batch Image Manipulator</string>
+   <string>BIR - Batch Image Manipulator</string>
   </property>
   <property name="windowIcon">
    <iconset resource="icon.qrc">
@@ -186,7 +186,7 @@
      <string notr="true">background-image: url(:/icon/icon); background-repeat:no-repeat; padding-left: 50px</string>
     </property>
     <property name="text">
-     <string>BIM</string>
+     <string>BIR</string>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -775,7 +775,7 @@
      <string notr="true">padding-left:55px</string>
     </property>
     <property name="text">
-     <string>Batch image manipulator</string>
+     <string>Batch image resizer</string>
     </property>
    </widget>
    <zorder>startResize</zorder>

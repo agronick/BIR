@@ -11,7 +11,7 @@ QT += core
 QMAKE_CXXFLAGS += -std=c++11
 
 
-TARGET = bim
+TARGET = bir
 TEMPLATE = app
 TARGET.EPOCHEAPSIZE = 0x020000 0x1000000
 
@@ -19,13 +19,13 @@ TARGET.EPOCHEAPSIZE = 0x020000 0x1000000
 INSTALLS += target desktop
 
 SOURCES += main.cpp\
-        bim.cpp \
+        bir.cpp \
     selectitem.cpp
 
-HEADERS  += bim.h \
+HEADERS  += bir.h \
     selectitem.h
 
-FORMS    += bim.ui
+FORMS    += bir.ui
 
 RESOURCES += \
     icon.qrc
@@ -33,4 +33,4 @@ RESOURCES += \
 
 target.path = /usr/local/bin
 desktop.path = /usr/share/applications
-desktop.files += bim.desktop
+desktop.files += bir.desktop

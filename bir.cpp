@@ -6,13 +6,13 @@
 #include <QWidgetItem>
 #include <QTransform>
 #include <QMessageBox>;
-#include "bim.h"
-#include "ui_bim.h"
+#include "bir.h"
+#include "ui_bir.h"
 #include "selectitem.h"
 
-BIM::BIM(QWidget *parent) :
+BIR::BIR(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::BIM)
+    ui(new Ui::BIR)
 {
     ui->setupUi(this);
 
@@ -36,12 +36,12 @@ BIM::BIM(QWidget *parent) :
 
 
 
-BIM::~BIM()
+BIR::~BIR()
 {
     delete ui;
 }
 
-void BIM::browseInput()
+void BIR::browseInput()
 {
     QStringList dir = browseDialog(true);
     if(dir.isEmpty())
@@ -79,7 +79,7 @@ void BIM::browseInput()
     }
 }
 
-void BIM::browseOutput()
+void BIR::browseOutput()
 {
     QStringList dirl = browseDialog(false);
 
@@ -89,7 +89,7 @@ void BIM::browseOutput()
     ui->outputFile->setText(dirl[0]);
 }
 
-QVector<QFileInfo> BIM::buildListFromDir(QString dir)
+QVector<QFileInfo> BIR::buildListFromDir(QString dir)
 {
     QVector<QFileInfo> files;
     QDirIterator dirIt(dir, (ui->useSubdirectories->isVisible() && ui->useSubdirectories->isChecked() ? QDirIterator::Subdirectories : QDirIterator::NoIteratorFlags));
@@ -102,7 +102,7 @@ QVector<QFileInfo> BIM::buildListFromDir(QString dir)
 }
 
 
-QStringList BIM::browseDialog(bool isInput)
+QStringList BIR::browseDialog(bool isInput)
 {
     QFileDialog *dialog = new QFileDialog(this);
 
@@ -121,7 +121,7 @@ QStringList BIM::browseDialog(bool isInput)
 }
 
 
-void BIM::populateLists(QVector<QFileInfo> items)
+void BIR::populateLists(QVector<QFileInfo> items)
 {
     QString extensions[] = {"png", "jpg", "gif"};
 
@@ -155,17 +155,17 @@ void BIM::populateLists(QVector<QFileInfo> items)
 }
 
 
-void BIM::pixelResize()
+void BIR::pixelResize()
 {
     pixelOff(true);
 }
 
-void BIM::ratioResize()
+void BIR::ratioResize()
 {
     pixelOff(false);
 }
 
-void BIM::pixelOff(bool on)
+void BIR::pixelOff(bool on)
 {
     ui->widthEdit->setEnabled(on);
     ui->heightEdit->setEnabled(on);
@@ -174,13 +174,13 @@ void BIM::pixelOff(bool on)
     setupAspectRatio(on);
 }
 
-void BIM::sliderMoved(int value)
+void BIR::sliderMoved(int value)
 {
     ui->sliderLabel->setText(QString::number(value).append("%"));
     selectImage();
 }
 
-void BIM::resetUi()
+void BIR::resetUi()
 {
     ui->fileList->clear();
     ui->inputFile->setText("");
@@ -193,17 +193,17 @@ void BIM::resetUi()
     ui->heightEdit->setText("");
 }
 
-void BIM::aspectRatioChange(int item)
+void BIR::aspectRatioChange(int item)
 {
     ui->cropMode->setEnabled(item == 2);
 }
 
-void BIM::removeItem()
+void BIR::removeItem()
 {
     ui->fileList->takeItem(ui->fileList->currentRow());
 }
 
-void BIM::selectImage()
+void BIR::selectImage()
 {
     SelectItem * item = dynamic_cast<SelectItem *>(ui->fileList->currentItem());
     if(item == NULL)
@@ -211,21 +211,21 @@ void BIM::selectImage()
 
     if(ui->percentageRadio->isChecked())
     {
-        BIM::setNewDimensions(item);
+        BIR::setNewDimensions(item);
     //    qDebug()<< QString::number(item->width()) + "Row: " + QString::number(ui->fileList->currentRow());
         ui->widthEdit->setText(QString::number(item->newWidth));
         ui->heightEdit->setText(QString::number(item->newHeight));
     }
 }
 
-void BIM::setNewDimensions(SelectItem* item)
+void BIR::setNewDimensions(SelectItem* item)
 {
     float ratio = ui->sizeSlider->value() * 0.01;
     item->newWidth = (item->width() * ratio);
     item->newHeight = (item->height() * ratio);
 }
 
-void BIM::startResize()
+void BIR::startResize()
 {
     int dirDiffIndex = -1;
 
@@ -299,7 +299,7 @@ void BIM::startResize()
     ui->progressBar->setValue(100);
 }
 
-void BIM::setNewDimensions()
+void BIR::setNewDimensions()
 {
     SelectItem * item;
     QImage image;
@@ -316,7 +316,7 @@ void BIM::setNewDimensions()
         }
 }
 
-QImage BIM::rotateImage(QImage* image)
+QImage BIR::rotateImage(QImage* image)
 {
     int deg = (ui->rotation->currentIndex() * 90);
 
@@ -325,7 +325,7 @@ QImage BIM::rotateImage(QImage* image)
     return image->transformed(transform);
 }
 
-QImage BIM::cropImage(QImage * image, int width, int height)
+QImage BIR::cropImage(QImage * image, int width, int height)
 {
     int x,y;
     int iHeight = height;
@@ -360,7 +360,7 @@ QImage BIM::cropImage(QImage * image, int width, int height)
     return image->copy(x,y,width,height);
 }
 
-QString BIM::getItemSubdir(SelectItem* item, int diffIndex)
+QString BIR::getItemSubdir(SelectItem* item, int diffIndex)
 {
     if(diffIndex < 1)
         return ui->outputFile->text() + "/";
@@ -371,7 +371,7 @@ QString BIM::getItemSubdir(SelectItem* item, int diffIndex)
      return dir + "/";
 }
 
-int BIM::getDiffDirIndex()
+int BIR::getDiffDirIndex()
 {
     int index = 0;
     int limit = INT_MAX;
@@ -406,7 +406,7 @@ int BIM::getDiffDirIndex()
     return limit;
 }
 
-void BIM::setupAspectRatio(bool pixelResize)
+void BIR::setupAspectRatio(bool pixelResize)
 {
     ui->aspectRatio->clear();
     if(pixelResize)

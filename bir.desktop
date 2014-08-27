@@ -1,10 +1,10 @@
 [Desktop Entry]
 Version=1.1
 Type=Application
-Name=BIM
+Name=BIR
 Comment=A batch image resizer and manipulator
-TryExec=bim
-Exec=bim %F
+TryExec=bir
+Exec=bir %F
 Icon=applications-graphics
 MimeType=image/png;image/jpg;image/gif
 Categories=Qt;KDE;Graphics;

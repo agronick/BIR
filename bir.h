@@ -6,9 +6,9 @@
 #define CRP_BOT_LEFT 3
 #define CRP_BOT_RIGHT 4
 
-#include <QMainWindow>
 #include <QtGui/QPushButton>
 #include <QVector>
+#include <QMainWindow>
 #include <QFileInfo>
 #include "selectitem.h"
 

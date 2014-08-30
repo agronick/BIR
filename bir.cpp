@@ -5,7 +5,8 @@
 #include <QListWidgetItem>
 #include <QWidgetItem>
 #include <QTransform>
-#include <QMessageBox>;
+#include <QMessageBox>
+#include <QImageReader>
 #include "bir.h"
 #include "ui_bir.h"
 #include "selectitem.h"
@@ -28,6 +29,10 @@ BIR::BIR(QWidget *parent) :
     connect(ui->aspectRatio, SIGNAL(currentIndexChanged(int)), this, SLOT(aspectRatioChange(int)));
     ui->percentageRadio->click();
 
+    QPixmap pixmap(":/icon/delete");
+    QIcon ButtonIcon(pixmap);
+    ui->removeItem->setIcon(ButtonIcon);
+    ui->removeItem->setIconSize(pixmap.rect().size());
 
     QIntValidator* numeric = new QIntValidator(0, 10000, this);
     ui->heightEdit->setValidator(numeric);
@@ -59,7 +64,7 @@ void BIR::browseInput()
         if(QDir(item).exists())
         {
             populateLists(buildListFromDir(item));
-            if(ui->fileList->count() == 0)
+            if(ui->fileList->count() == 0 && !ui->useSubdirectories->isChecked())
             {
                 int ret = QMessageBox::question(this,
                                                 "No Files Selected",
@@ -106,7 +111,7 @@ QStringList BIR::browseDialog(bool isInput)
 {
     QFileDialog *dialog = new QFileDialog(this);
 
-
+    dialog->setDirectory(QDir::homePath());
     dialog->setFileMode(ui->useDir->isChecked() || !isInput ? QFileDialog::Directory : QFileDialog::ExistingFiles);
 
     int result = dialog->exec();
@@ -123,7 +128,7 @@ QStringList BIR::browseDialog(bool isInput)
 
 void BIR::populateLists(QVector<QFileInfo> items)
 {
-    QString extensions[] = {"png", "jpg", "gif"};
+    QList<QByteArray> extensions = QImageReader::supportedImageFormats();
 
     SelectItem *fileItem;
     for(int i = 0; i < items.count(); i++)
@@ -138,15 +143,11 @@ void BIR::populateLists(QVector<QFileInfo> items)
                 continue;
         }
 
-        for(int j=0; j < 3; j++)
+        if(extensions.contains(items.at(i).suffix().toLower().toAscii())) //Check if the item is not already there
         {
-            qDebug() << "check " + extensions[j] + " equal to " + items.at(i).suffix().toLower();
-            if(items.at(i).suffix().toLower() == extensions[j]) //Check if the item is not already there
-            {
                 fileItem = new SelectItem(path);
                 fileItem->setText(name);
                 ui->fileList->addItem(fileItem);
-            }
         }
 
         ui->progressBar->setValue((i / (float)items.count()) * 100.0);
@@ -207,7 +208,13 @@ void BIR::selectImage()
 {
     SelectItem * item = dynamic_cast<SelectItem *>(ui->fileList->currentItem());
     if(item == NULL)
+    {
+        ui->removeItem->setEnabled(false);
+        ui->widthEdit->setText("");
+        ui->heightEdit->setText("");
         return;
+    }
+     ui->removeItem->setEnabled(true);
 
     if(ui->percentageRadio->isChecked())
     {
@@ -227,11 +234,16 @@ void BIR::setNewDimensions(SelectItem* item)
 
 void BIR::startResize()
 {
+    if(ui->fileList->count() == 0 || ui->outputFile->text().trimmed().count() < 2)
+    {
+        return;
+    }
+
     int dirDiffIndex = -1;
 
     //Get this ahead of time because the difference between directories does not need
     //to be found with each file
-    if(ui->dirStruct->isChecked())
+    if(ui->fileList->count() > 1 && ui->dirStruct->isChecked())
     {
         dirDiffIndex = getDiffDirIndex();
     }else{

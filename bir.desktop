@@ -1,11 +1,12 @@
 [Desktop Entry]
-Version=1.1
+Version=1.0
 Type=Application
 Name=BIR
 Comment=A batch image resizer and manipulator
+GenericName=Image Resizer
 TryExec=bir
 Exec=bir %F
-Icon=applications-graphics
-MimeType=image/png;image/jpg;image/gif
-Categories=Qt;KDE;Graphics;
+Icon=bir
+MimeType=image/png;image/jpg;image/gif;
+Categories=Graphics;2DGraphics;
 Terminal=false

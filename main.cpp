@@ -19,19 +19,30 @@ int main(int argc, char *argv[])
         {
             printHelp();
             return 0;
-        }else if(QString(argv[1][0]) == "/" && QDir(QString(argv[1])).exists())
+        }
+
+
+        QVector<QFileInfo> files;
+        if(argc > 1)
         {
-            loadDir = argv[1];
-        }else if(QString(argv[1][0]) == "./")
-        {
-            loadDir = argv[0];
-        }else{
             for(int i = 1; i < argc; i++)
             {
-
+                if(QDir(argv[i]).exists())
+                {
+                    QVector<QFileInfo> newFiles = w.buildListFromDir(argv[i]);
+                    for(int j = 0; j < newFiles.count(); j++)
+                    {
+                        files.append(newFiles.at(j));
+                    }
+                }else if(QFile(argv[i]).exists())
+                {
+                    files.append(QFileInfo(argv[i]));
+                }
             }
+            w.populateLists(files);
         }
     }
+
 
 
     w.show();
@@ -40,7 +51,8 @@ int main(int argc, char *argv[])
     if(loadDir != "")
     {
         std::cout << "\nLoading images...\n";\
-        w.populateLists(w.buildListFromDir(argv[1]));
+        QVector<QFileInfo> info = w.buildListFromDir(argv[1]);
+        w.populateLists(info);
     }
 
 

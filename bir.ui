@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>696</width>
+    <width>684</width>
     <height>543</height>
    </rect>
   </property>
@@ -38,7 +38,7 @@
      <rect>
       <x>350</x>
       <y>470</y>
-      <width>101</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -56,9 +56,9 @@
    <widget class="QToolButton" name="resetList">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>240</x>
       <y>470</y>
-      <width>81</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -113,7 +113,7 @@
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>221</width>
+       <width>231</width>
        <height>21</height>
       </rect>
      </property>
@@ -212,7 +212,7 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>111</width>
+       <width>141</width>
        <height>20</height>
       </rect>
      </property>
@@ -226,9 +226,9 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>150</x>
        <y>30</y>
-       <width>131</width>
+       <width>151</width>
        <height>20</height>
       </rect>
      </property>
@@ -249,7 +249,7 @@
     <widget class="QPushButton" name="browseIn">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>220</x>
        <y>50</y>
        <width>78</width>
        <height>25</height>
@@ -276,7 +276,7 @@
      <property name="geometry">
       <rect>
        <x>60</x>
-       <y>250</y>
+       <y>240</y>
        <width>52</width>
        <height>14</height>
       </rect>
@@ -286,23 +286,29 @@
      </property>
     </widget>
     <widget class="QToolButton" name="removeItem">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
-       <x>270</x>
-       <y>240</y>
-       <width>30</width>
-       <height>24</height>
+       <x>259</x>
+       <y>230</y>
+       <width>41</width>
+       <height>31</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-image:url(/icon/minus);</string>
+     </property>
      <property name="text">
-      <string>-</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="label_11">
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>250</y>
+       <y>240</y>
        <width>52</width>
        <height>14</height>
       </rect>
@@ -314,8 +320,8 @@
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>250</y>
+       <x>20</x>
+       <y>240</y>
        <width>52</width>
        <height>14</height>
       </rect>
@@ -328,7 +334,7 @@
      <property name="geometry">
       <rect>
        <x>200</x>
-       <y>250</y>
+       <y>240</y>
        <width>52</width>
        <height>14</height>
       </rect>
@@ -345,6 +351,9 @@
        <width>291</width>
        <height>201</height>
       </rect>
+     </property>
+     <property name="acceptDrops">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
@@ -734,6 +743,9 @@
       <property name="text">
        <string>Preserve directory structure</string>
       </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QCheckBox" name="deleteExisting">
       <property name="geometry">
@@ -793,7 +805,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>696</width>
+     <width>684</width>
      <height>20</height>
     </rect>
    </property>
@@ -820,12 +832,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>419</x>
-     <y>296</y>
+     <x>426</x>
+     <y>293</y>
     </hint>
     <hint type="destinationlabel">
      <x>101</x>
-     <y>445</y>
+     <y>429</y>
     </hint>
    </hints>
   </connection>
@@ -836,12 +848,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>565</x>
-     <y>294</y>
+     <x>572</x>
+     <y>293</y>
     </hint>
     <hint type="destinationlabel">
      <x>242</x>
-     <y>440</y>
+     <y>429</y>
     </hint>
    </hints>
   </connection>
@@ -868,12 +880,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>441</x>
-     <y>252</y>
+     <x>445</x>
+     <y>249</y>
     </hint>
     <hint type="destinationlabel">
-     <x>443</x>
-     <y>276</y>
+     <x>447</x>
+     <y>271</y>
     </hint>
    </hints>
   </connection>

@@ -30,7 +30,9 @@ FORMS    += bir.ui
 RESOURCES += \
     icon.qrc
 
-
-target.path = /usr/local/bin
+desktopfile.files = bir.desktop
+desktopfile.path = /usr/share/applications
+icon.files = bir80.png
+icon.path = /usr/share/icons/hicolor/80x80/apps 
 desktop.path = /usr/share/applications
-desktop.files += bir.desktop
+target.path = /usr/bin

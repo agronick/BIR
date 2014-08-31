@@ -6,7 +6,7 @@
 #include <QWidgetItem>
 #include <QTransform>
 #include <QMessageBox>
-#include <QImageReader>
+#include <QImageWriter>
 #include "bir.h"
 #include "ui_bir.h"
 #include "selectitem.h"
@@ -128,7 +128,7 @@ QStringList BIR::browseDialog(bool isInput)
 
 void BIR::populateLists(QVector<QFileInfo> items)
 {
-    QList<QByteArray> extensions = QImageReader::supportedImageFormats();
+    QList<QByteArray> extensions = QImageWriter::supportedImageFormats() ;
 
     SelectItem *fileItem;
     for(int i = 0; i < items.count(); i++)

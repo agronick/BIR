@@ -219,10 +219,11 @@ void BIR::selectImage()
     if(ui->percentageRadio->isChecked())
     {
         BIR::setNewDimensions(item);
-    //    qDebug()<< QString::number(item->width()) + "Row: " + QString::number(ui->fileList->currentRow());
-        ui->widthEdit->setText(QString::number(item->newWidth));
-        ui->heightEdit->setText(QString::number(item->newHeight));
+        ui->widthLabel->setText(QString::number(item->newWidth));
+        ui->heightLabel->setText(QString::number(item->newHeight));
     }
+    //    qDebug()<< QString::number(item->width()) + "Row: " + QString::number(ui->fileList->currentRow());
+
 }
 
 void BIR::setNewDimensions(SelectItem* item)
@@ -240,6 +241,7 @@ void BIR::startResize()
     }
 
     int dirDiffIndex = -1;
+    int goodCount = 0;
 
     //Get this ahead of time because the difference between directories does not need
     //to be found with each file
@@ -303,12 +305,18 @@ void BIR::startResize()
         {
             continue;
         }else{
-            image.save(name);
+            if(image.save(name, 0, 100))
+                goodCount++;
         }
 
         ui->progressBar->setValue((i / (float)ui->fileList->count()) * 100.0);
     }
-    ui->progressBar->setValue(100);
+    ui->progressBar->setValue(0);
+    QMessageBox::information(this,
+                             "Resizing Complete",
+                             QString::number(goodCount) + "/" + QString::number(ui->fileList->count()) + " images resized successfully",
+                             QMessageBox::Ok);
+
 }
 
 void BIR::setNewDimensions()
@@ -427,8 +435,10 @@ void BIR::setupAspectRatio(bool pixelResize)
         ui->aspectRatio->addItem("Preserve aspect ratio inside dimensions");
         ui->aspectRatio->addItem("Preserve aspect ratio and crop");
         ui->pixelRadio->setChecked(true);
+        ui->aspectRatio->setDisabled(false);
     }else{
         ui->aspectRatio->addItem("Preserve aspect ratio");
+        ui->aspectRatio->setDisabled(true);
         ui->percentageRadio->setChecked(true);
     }
 }

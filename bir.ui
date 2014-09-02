@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
+    <width>690</width>
     <height>547</height>
    </rect>
   </property>
@@ -21,8 +21,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>1165</width>
-    <height>1000</height>
+    <width>16777215</width>
+    <height>10000000</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -45,7 +45,7 @@
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
      <widget class="QLabel" name="titleIcon">
       <property name="sizePolicy">
@@ -80,7 +80,7 @@
        <string notr="true">background-image: url(:/icon/icon); background-repeat:no-repeat; padding-left: 50px</string>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600; color:#333333;&quot;&gt;BIR&lt;/span&gt;&lt;br /&gt;&lt;span style=&quot; font-size:9pt; color:#454545;&quot;&gt;Batch Image Resizer&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;BIR&lt;/span&gt;&lt;br/&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Batch Image Resizer&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="textFormat">
        <enum>Qt::RichText</enum>
@@ -95,6 +95,9 @@
        <set>Qt::NoTextInteraction</set>
       </property>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout"/>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -198,9 +201,6 @@
           </layout>
          </item>
         </layout>
-        <zorder>horizontalLayoutWidget</zorder>
-        <zorder>horizontalLayoutWidget_5</zorder>
-        <zorder>horizontalLayoutWidget_6</zorder>
        </widget>
       </item>
       <item>
@@ -220,75 +220,62 @@
         <property name="title">
          <string>File Info</string>
         </property>
-        <widget class="QLineEdit" name="outputFile">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>60</y>
-           <width>251</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>100</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="sizeIncrement">
-          <size>
-           <width>0</width>
-           <height>100</height>
-          </size>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="browseOut">
-         <property name="geometry">
-          <rect>
-           <x>260</x>
-           <y>60</y>
-           <width>78</width>
-           <height>25</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Browse</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_2">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>40</y>
-           <width>111</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Output Directory</string>
-         </property>
-        </widget>
-        <zorder>outputFile</zorder>
-        <zorder>browseOut</zorder>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Output Directory</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLineEdit" name="outputFile">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>100</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="sizeIncrement">
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="browseOut">
+             <property name="text">
+              <string>Browse</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
         <zorder>label_2</zorder>
-        <zorder>titleIcon</zorder>
+        <zorder>browseIn</zorder>
+        <zorder>horizontalLayoutWidget</zorder>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1">
+     <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,0">
       <property name="spacing">
        <number>1</number>
       </property>
       <property name="sizeConstraint">
-       <enum>QLayout::SetMaximumSize</enum>
+       <enum>QLayout::SetFixedSize</enum>
       </property>
       <property name="topMargin">
-       <number>13</number>
+       <number>3</number>
       </property>
       <property name="bottomMargin">
-       <number>13</number>
+       <number>33</number>
       </property>
       <item>
        <widget class="QGroupBox" name="fileList_2">
@@ -343,7 +330,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="heightLabel">
+            <widget class="QLabel" name="widthLabel">
              <property name="text">
               <string/>
              </property>
@@ -360,9 +347,28 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="widthLabel">
+            <widget class="QLabel" name="heightLabel">
              <property name="text">
               <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="removeAll">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -372,10 +378,16 @@
               <bool>false</bool>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-image:url(/icon/minus);</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string/>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>27</width>
+               <height>27</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -387,7 +399,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -395,361 +407,365 @@
         <property name="minimumSize">
          <size>
           <width>346</width>
-          <height>280</height>
+          <height>251</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>233</height>
+         </size>
+        </property>
+        <property name="tabPosition">
+         <enum>QTabWidget::North</enum>
+        </property>
+        <property name="tabShape">
+         <enum>QTabWidget::Rounded</enum>
+        </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
+        </property>
+        <property name="tabsClosable">
+         <bool>false</bool>
         </property>
         <widget class="QWidget" name="imageTab">
+         <attribute name="icon">
+          <iconset theme="applications-graphics"/>
+         </attribute>
          <attribute name="title">
           <string>Image Settings</string>
          </attribute>
-         <widget class="QGroupBox" name="settings">
+         <widget class="QComboBox" name="cropMode">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>331</width>
-            <height>231</height>
+            <x>10</x>
+            <y>140</y>
+            <width>301</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <item>
+           <property name="text">
+            <string>Crop to Center</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Crop to Top Left</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Crop to Top Right</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Crop to Bottom Left</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Crop to Bottom Right</string>
+           </property>
+          </item>
+         </widget>
+         <widget class="QLabel" name="label_7">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>170</y>
+            <width>71</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Rotation</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_6">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>70</y>
+            <width>111</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Aspect Ratio</string>
+          </property>
+         </widget>
+         <widget class="QStackedWidget" name="sizeModePager">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>30</y>
+            <width>311</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <widget class="QWidget" name="page">
+           <widget class="QSlider" name="sizeSlider">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>261</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="minimum">
+             <number>2</number>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="value">
+             <number>100</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QLabel" name="sliderLabel">
+            <property name="geometry">
+             <rect>
+              <x>270</x>
+              <y>10</y>
+              <width>41</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>100%</string>
+            </property>
+            <property name="buddy">
+             <cstring>sizeSlider</cstring>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_2">
+           <widget class="QLabel" name="label_3">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>55</width>
+              <height>15</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Width</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="heightEdit">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="geometry">
+             <rect>
+              <x>190</x>
+              <y>10</y>
+              <width>61</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_4">
+            <property name="geometry">
+             <rect>
+              <x>140</x>
+              <y>10</y>
+              <width>55</width>
+              <height>15</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Height</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="widthEdit">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="geometry">
+             <rect>
+              <x>40</x>
+              <y>10</y>
+              <width>61</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="readOnly">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </widget>
+         </widget>
+         <widget class="QLabel" name="label">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>120</y>
+            <width>151</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>(Requires aspect ratio)</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="rotation">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>190</y>
+            <width>301</width>
+            <height>22</height>
            </rect>
           </property>
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <widget class="QRadioButton" name="pixelRadio">
-           <property name="geometry">
-            <rect>
-             <x>220</x>
-             <y>20</y>
-             <width>95</width>
-             <height>21</height>
-            </rect>
-           </property>
+          <item>
            <property name="text">
-            <string>Size</string>
+            <string>0°</string>
            </property>
-          </widget>
-          <widget class="QRadioButton" name="percentageRadio">
-           <property name="geometry">
-            <rect>
-             <x>100</x>
-             <y>20</y>
-             <width>95</width>
-             <height>21</height>
-            </rect>
-           </property>
+          </item>
+          <item>
            <property name="text">
-            <string>Percentage</string>
+            <string>90°</string>
            </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_5">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>20</y>
-             <width>81</width>
-             <height>16</height>
-            </rect>
-           </property>
+          </item>
+          <item>
            <property name="text">
-            <string>Resize by</string>
+            <string>180°</string>
            </property>
-          </widget>
-          <widget class="QLabel" name="label_6">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>80</y>
-             <width>111</width>
-             <height>16</height>
-            </rect>
-           </property>
+          </item>
+          <item>
            <property name="text">
-            <string>Aspect Ratio</string>
+            <string>270°</string>
            </property>
-          </widget>
-          <widget class="QComboBox" name="aspectRatio">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>100</y>
-             <width>301</width>
-             <height>22</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_7">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>180</y>
-             <width>71</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Rotation</string>
-           </property>
-          </widget>
-          <widget class="QComboBox" name="rotation">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>200</y>
-             <width>301</width>
-             <height>22</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <item>
-            <property name="text">
-             <string>0°</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>90°</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>180°</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>270°</string>
-            </property>
-           </item>
-          </widget>
-          <widget class="QLabel" name="label_8">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>130</y>
-             <width>301</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Crop</string>
-           </property>
-           <property name="buddy">
-            <cstring>cropMode</cstring>
-           </property>
-          </widget>
-          <widget class="QStackedWidget" name="sizeModePager">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>40</y>
-             <width>311</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Plain</enum>
-           </property>
-           <property name="currentIndex">
-            <number>1</number>
-           </property>
-           <widget class="QWidget" name="page">
-            <widget class="QSlider" name="sizeSlider">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>10</y>
-               <width>261</width>
-               <height>20</height>
-              </rect>
-             </property>
-             <property name="minimum">
-              <number>2</number>
-             </property>
-             <property name="maximum">
-              <number>100</number>
-             </property>
-             <property name="value">
-              <number>100</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-            <widget class="QLabel" name="sliderLabel">
-             <property name="geometry">
-              <rect>
-               <x>270</x>
-               <y>10</y>
-               <width>41</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>100%</string>
-             </property>
-             <property name="buddy">
-              <cstring>sizeSlider</cstring>
-             </property>
-            </widget>
-           </widget>
-           <widget class="QWidget" name="page_2">
-            <widget class="QLabel" name="label_3">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>10</y>
-               <width>55</width>
-               <height>15</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Width</string>
-             </property>
-            </widget>
-            <widget class="QLineEdit" name="heightEdit">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="geometry">
-              <rect>
-               <x>190</x>
-               <y>10</y>
-               <width>61</width>
-               <height>21</height>
-              </rect>
-             </property>
-            </widget>
-            <widget class="QLabel" name="label_4">
-             <property name="geometry">
-              <rect>
-               <x>140</x>
-               <y>10</y>
-               <width>55</width>
-               <height>15</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Height</string>
-             </property>
-            </widget>
-            <widget class="QLineEdit" name="widthEdit">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="geometry">
-              <rect>
-               <x>40</x>
-               <y>10</y>
-               <width>61</width>
-               <height>21</height>
-              </rect>
-             </property>
-             <property name="readOnly">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </widget>
-          </widget>
-          <widget class="QComboBox" name="cropMode">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>150</y>
-             <width>301</width>
-             <height>22</height>
-            </rect>
-           </property>
-           <item>
-            <property name="text">
-             <string>Crop to Center</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Crop to Top Left</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Crop to Top Right</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Crop to Bottom Left</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Crop to Bottom Right</string>
-            </property>
-           </item>
-          </widget>
-          <widget class="QLabel" name="label">
-           <property name="geometry">
-            <rect>
-             <x>160</x>
-             <y>130</y>
-             <width>151</width>
-             <height>20</height>
-            </rect>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>8</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>(Requires aspect ratio)</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-          <zorder>pixelRadio</zorder>
-          <zorder>percentageRadio</zorder>
-          <zorder>label_5</zorder>
-          <zorder>label_6</zorder>
-          <zorder>aspectRatio</zorder>
-          <zorder>label_7</zorder>
-          <zorder>rotation</zorder>
-          <zorder>label_8</zorder>
-          <zorder>sizeModePager</zorder>
-          <zorder>cropMode</zorder>
-          <zorder>label</zorder>
-          <zorder>progressBar</zorder>
-          <zorder>titleIcon</zorder>
+          </item>
          </widget>
+         <widget class="QLabel" name="label_5">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>81</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Resize by</string>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="aspectRatio">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>90</y>
+            <width>301</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+         <widget class="QRadioButton" name="percentageRadio">
+          <property name="geometry">
+           <rect>
+            <x>100</x>
+            <y>10</y>
+            <width>95</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Percentage</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_8">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>120</y>
+            <width>301</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Crop</string>
+          </property>
+          <property name="buddy">
+           <cstring>cropMode</cstring>
+          </property>
+         </widget>
+         <widget class="QRadioButton" name="pixelRadio">
+          <property name="geometry">
+           <rect>
+            <x>220</x>
+            <y>10</y>
+            <width>95</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Size</string>
+          </property>
+         </widget>
+         <zorder>cropMode</zorder>
+         <zorder>label_7</zorder>
+         <zorder>label_6</zorder>
+         <zorder>sizeModePager</zorder>
+         <zorder>label</zorder>
+         <zorder>rotation</zorder>
+         <zorder>label_5</zorder>
+         <zorder>aspectRatio</zorder>
+         <zorder>percentageRadio</zorder>
+         <zorder>label_8</zorder>
+         <zorder>pixelRadio</zorder>
+         <zorder></zorder>
         </widget>
         <widget class="QWidget" name="fileTab">
+         <attribute name="icon">
+          <iconset theme="image-x-generic"/>
+         </attribute>
          <attribute name="title">
           <string>File Settings</string>
          </attribute>
@@ -791,8 +807,11 @@
           <property name="text">
            <string>Preserve directory structure</string>
           </property>
-          <property name="checked">
+          <property name="checkable">
            <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
           </property>
          </widget>
          <widget class="QCheckBox" name="deleteExisting">
@@ -899,7 +918,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>693</width>
+     <width>690</width>
      <height>20</height>
     </rect>
    </property>
@@ -920,46 +939,14 @@
  </resources>
  <connections>
   <connection>
-   <sender>widthEdit</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>widthLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>426</x>
-     <y>293</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>101</x>
-     <y>429</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>heightEdit</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>heightLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>572</x>
-     <y>293</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>242</x>
-     <y>429</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>useDir</sender>
    <signal>toggled(bool)</signal>
    <receiver>useSubdirectories</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>145</y>
+     <x>145</x>
+     <y>142</y>
     </hint>
     <hint type="destinationlabel">
      <x>198</x>
@@ -980,6 +967,22 @@
     <hint type="destinationlabel">
      <x>447</x>
      <y>271</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeAll</sender>
+   <signal>released()</signal>
+   <receiver>fileList</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>281</x>
+     <y>412</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>279</x>
+     <y>351</y>
     </hint>
    </hints>
   </connection>

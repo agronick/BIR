@@ -51,6 +51,7 @@ private slots:
     void selectImage();
     void startResize();
     void aspectRatioChange(int);
+    void removeAll();
 };
 
 

@@ -2,5 +2,6 @@
     <qresource prefix="/icon">
         <file alias="icon">icon.png</file>
         <file alias="delete">delete.png</file>
+        <file alias="delete_all">delete_all.png</file>
     </qresource>
 </RCC>

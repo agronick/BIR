@@ -25,14 +25,23 @@ BIR::BIR(QWidget *parent) :
     connect(ui->resetList, SIGNAL(clicked()), this, SLOT(resetUi()));
     connect(ui->removeItem, SIGNAL(released()), this, SLOT(removeItem()));
     connect(ui->fileList, SIGNAL(currentRowChanged(int)), this, SLOT(selectImage()));
+    connect(ui->fileList, SIGNAL(), this, SLOT(selectImage()));
     connect(ui->startResize, SIGNAL(clicked()), this, SLOT(startResize()));
     connect(ui->aspectRatio, SIGNAL(currentIndexChanged(int)), this, SLOT(aspectRatioChange(int)));
+    connect(ui->removeAll, SIGNAL(released()), this, SLOT(removeAll()));
+
+
     ui->percentageRadio->click();
 
     QPixmap pixmap(":/icon/delete");
     QIcon ButtonIcon(pixmap);
     ui->removeItem->setIcon(ButtonIcon);
     ui->removeItem->setIconSize(pixmap.rect().size());
+
+    pixmap.load(":/icon/delete_all");
+    ButtonIcon.addPixmap(pixmap);
+    ui->removeAll->setIcon(ButtonIcon);
+    ui->removeAll->setIconSize(pixmap.rect().size());
 
     QIntValidator* numeric = new QIntValidator(0, 10000, this);
     ui->heightEdit->setValidator(numeric);
@@ -148,6 +157,7 @@ void BIR::populateLists(QVector<QFileInfo> items)
                 fileItem = new SelectItem(path);
                 fileItem->setText(name);
                 ui->fileList->addItem(fileItem);
+                ui->removeAll->setEnabled(true);
         }
 
         ui->progressBar->setValue((i / (float)items.count()) * 100.0);
@@ -183,15 +193,21 @@ void BIR::sliderMoved(int value)
 
 void BIR::resetUi()
 {
+    foreach(QLineEdit *widget, this->findChildren<QLineEdit*>()) {
+        widget->clear();
+    }
     ui->fileList->clear();
-    ui->inputFile->setText("");
-    ui->outputFile->setText("");
     ui->rotation->setCurrentIndex(0);
     ui->aspectRatio->setCurrentIndex(0);
     ui->cropMode->setCurrentIndex(0);
     ui->useDir->setChecked(false);
-    ui->widthEdit->setText("");
-    ui->heightEdit->setText("");
+    ui->percentageRadio->setChecked(true);
+    ui->useSubdirectories->setChecked(false);
+    ui->appendFileChk->setChecked(false);
+    ui->dirStruct->setChecked(true);
+    ui->deleteExisting->setChecked(true);
+    ui->sizeSlider->setValue(100);
+    ui->removeAll->setEnabled(false);
 }
 
 void BIR::aspectRatioChange(int item)
@@ -202,6 +218,10 @@ void BIR::aspectRatioChange(int item)
 void BIR::removeItem()
 {
     ui->fileList->takeItem(ui->fileList->currentRow());
+    if(ui->fileList->count() == 0)
+    {
+        ui->removeAll->setEnabled(false);
+    }
 }
 
 void BIR::selectImage()
@@ -222,7 +242,6 @@ void BIR::selectImage()
         ui->widthLabel->setText(QString::number(item->newWidth));
         ui->heightLabel->setText(QString::number(item->newHeight));
     }
-    //    qDebug()<< QString::number(item->width()) + "Row: " + QString::number(ui->fileList->currentRow());
 
 }
 
@@ -403,8 +422,7 @@ int BIR::getDiffDirIndex()
     for(int i = 1; i < ui->fileList->count(); i++)
     {
         thisFile = QFileInfo(dynamic_cast<SelectItem *>(ui->fileList->item(i))->path).absoluteDir().absolutePath();;
-        qDebug() << thisFile;
-        qDebug() << lastFile;
+
         while(index < limit
               && thisFile.length() > index + 1 && lastFile.length() > index + 1
               && (thisFile.at(index) == lastFile.at(index)))
@@ -441,4 +459,9 @@ void BIR::setupAspectRatio(bool pixelResize)
         ui->aspectRatio->setDisabled(true);
         ui->percentageRadio->setChecked(true);
     }
+}
+
+void BIR::removeAll()
+{
+    ui->removeAll->setEnabled(false);
 }

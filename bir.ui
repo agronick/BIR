@@ -10,13 +10,13 @@
     <x>0</x>
     <y>0</y>
     <width>690</width>
-    <height>547</height>
+    <height>592</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>690</width>
-    <height>547</height>
+    <height>592</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -101,6 +101,9 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="spacing">
+       <number>20</number>
+      </property>
       <property name="sizeConstraint">
        <enum>QLayout::SetFixedSize</enum>
       </property>
@@ -256,9 +259,6 @@
           </layout>
          </item>
         </layout>
-        <zorder>label_2</zorder>
-        <zorder>browseIn</zorder>
-        <zorder>horizontalLayoutWidget</zorder>
        </widget>
       </item>
      </layout>
@@ -266,7 +266,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,0">
       <property name="spacing">
-       <number>1</number>
+       <number>20</number>
       </property>
       <property name="sizeConstraint">
        <enum>QLayout::SetFixedSize</enum>
@@ -275,7 +275,7 @@
        <number>3</number>
       </property>
       <property name="bottomMargin">
-       <number>33</number>
+       <number>3</number>
       </property>
       <item>
        <widget class="QGroupBox" name="fileList_2">
@@ -407,7 +407,7 @@
         <property name="minimumSize">
          <size>
           <width>346</width>
-          <height>251</height>
+          <height>268</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -430,7 +430,9 @@
         </property>
         <widget class="QWidget" name="imageTab">
          <attribute name="icon">
-          <iconset theme="applications-graphics"/>
+          <iconset theme="applications-graphics">
+           <normaloff/>
+          </iconset>
          </attribute>
          <attribute name="title">
           <string>Image Settings</string>
@@ -442,7 +444,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>140</y>
+            <y>150</y>
             <width>301</width>
             <height>22</height>
            </rect>
@@ -477,7 +479,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>170</y>
+            <y>180</y>
             <width>71</width>
             <height>16</height>
            </rect>
@@ -490,7 +492,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>70</y>
+            <y>80</y>
             <width>111</width>
             <height>16</height>
            </rect>
@@ -521,9 +523,9 @@
            <widget class="QSlider" name="sizeSlider">
             <property name="geometry">
              <rect>
-              <x>0</x>
+              <x>10</x>
               <y>10</y>
-              <width>261</width>
+              <width>251</width>
               <height>20</height>
              </rect>
             </property>
@@ -561,7 +563,7 @@
            <widget class="QLabel" name="label_3">
             <property name="geometry">
              <rect>
-              <x>0</x>
+              <x>30</x>
               <y>10</y>
               <width>55</width>
               <height>15</height>
@@ -577,7 +579,7 @@
             </property>
             <property name="geometry">
              <rect>
-              <x>190</x>
+              <x>220</x>
               <y>10</y>
               <width>61</width>
               <height>21</height>
@@ -587,7 +589,7 @@
            <widget class="QLabel" name="label_4">
             <property name="geometry">
              <rect>
-              <x>140</x>
+              <x>170</x>
               <y>10</y>
               <width>55</width>
               <height>15</height>
@@ -603,7 +605,7 @@
             </property>
             <property name="geometry">
              <rect>
-              <x>40</x>
+              <x>70</x>
               <y>10</y>
               <width>61</width>
               <height>21</height>
@@ -619,7 +621,7 @@
           <property name="geometry">
            <rect>
             <x>160</x>
-            <y>120</y>
+            <y>130</y>
             <width>151</width>
             <height>20</height>
            </rect>
@@ -640,7 +642,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>190</y>
+            <y>200</y>
             <width>301</width>
             <height>22</height>
            </rect>
@@ -692,7 +694,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>90</y>
+            <y>100</y>
             <width>301</width>
             <height>22</height>
            </rect>
@@ -724,8 +726,8 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>120</y>
-            <width>301</width>
+            <y>130</y>
+            <width>131</width>
             <height>16</height>
            </rect>
           </property>
@@ -749,7 +751,27 @@
            <string>Size</string>
           </property>
          </widget>
-         <zorder>cropMode</zorder>
+         <widget class="QLabel" name="label_10">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>180</y>
+            <width>151</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>(After resizing)</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
          <zorder>label_7</zorder>
          <zorder>label_6</zorder>
          <zorder>sizeModePager</zorder>
@@ -760,11 +782,14 @@
          <zorder>percentageRadio</zorder>
          <zorder>label_8</zorder>
          <zorder>pixelRadio</zorder>
-         <zorder></zorder>
+         <zorder>cropMode</zorder>
+         <zorder>label_10</zorder>
         </widget>
         <widget class="QWidget" name="fileTab">
          <attribute name="icon">
-          <iconset theme="image-x-generic"/>
+          <iconset theme="image-x-generic">
+           <normaloff/>
+          </iconset>
          </attribute>
          <attribute name="title">
           <string>File Settings</string>
@@ -919,7 +944,7 @@
      <x>0</x>
      <y>0</y>
      <width>690</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

@@ -25,7 +25,6 @@ BIR::BIR(QWidget *parent) :
     connect(ui->resetList, SIGNAL(clicked()), this, SLOT(resetUi()));
     connect(ui->removeItem, SIGNAL(released()), this, SLOT(removeItem()));
     connect(ui->fileList, SIGNAL(currentRowChanged(int)), this, SLOT(selectImage()));
-    connect(ui->fileList, SIGNAL(), this, SLOT(selectImage()));
     connect(ui->startResize, SIGNAL(clicked()), this, SLOT(startResize()));
     connect(ui->aspectRatio, SIGNAL(currentIndexChanged(int)), this, SLOT(aspectRatioChange(int)));
     connect(ui->removeAll, SIGNAL(released()), this, SLOT(removeAll()));
@@ -120,10 +119,13 @@ QStringList BIR::browseDialog(bool isInput)
 {
     QFileDialog *dialog = new QFileDialog(this);
 
-    dialog->setDirectory(QDir::homePath());
+
     dialog->setFileMode(ui->useDir->isChecked() || !isInput ? QFileDialog::Directory : QFileDialog::ExistingFiles);
 
     int result = dialog->exec();
+    QString path = (QDir(QDir::homePath() + "/Pictures").exists() ? QDir::homePath() + "/Pictures" : QDir::homePath());
+    dialog->setDirectory(path);
+
 
     QStringList directory;
 
@@ -137,6 +139,7 @@ QStringList BIR::browseDialog(bool isInput)
 
 void BIR::populateLists(QVector<QFileInfo> items)
 {
+    bool hasAsked = false;
     QList<QByteArray> extensions = QImageWriter::supportedImageFormats() ;
 
     SelectItem *fileItem;
@@ -149,7 +152,24 @@ void BIR::populateLists(QVector<QFileInfo> items)
         {
             QList<QListWidgetItem*> list = ui->fileList->findItems(name, Qt::MatchContains);
             if(!list.empty())
-                continue;
+            {
+                if(!hasAsked)
+                {
+                    unsigned int ret = QMessageBox::question(this,
+                                                    "Duplicate files",
+                                                    "You have more than one file of the same name. Would you like to preserve the directory structure so those files are not overwritten?",
+                                                    QMessageBox::Yes | QMessageBox::No);
+                    hasAsked = true;
+                    if(ret == QMessageBox::Yes)
+                    {
+                        ui->dirStruct->setChecked(true);
+                    }else{
+                        continue;
+                    }
+                }else{
+                    continue;
+                }
+            }
         }
 
         if(extensions.contains(items.at(i).suffix().toLower().toAscii())) //Check if the item is not already there
@@ -230,8 +250,8 @@ void BIR::selectImage()
     if(item == NULL)
     {
         ui->removeItem->setEnabled(false);
-        ui->widthEdit->setText("");
-        ui->heightEdit->setText("");
+        ui->widthLabel->setText("");
+        ui->heightLabel->setText("");
         return;
     }
      ui->removeItem->setEnabled(true);
@@ -241,6 +261,9 @@ void BIR::selectImage()
         BIR::setNewDimensions(item);
         ui->widthLabel->setText(QString::number(item->newWidth));
         ui->heightLabel->setText(QString::number(item->newHeight));
+    }else{
+        ui->widthLabel->setText(QString::number(item->oldWidth));
+        ui->heightLabel->setText(QString::number(item->newWidth));
     }
 
 }
@@ -289,7 +312,7 @@ void BIR::startResize()
 
     SelectItem * item;
     QImage image;
-    for(int i = 0; i < ui->fileList->count(); i ++)
+    for(unsigned short i = 0; i < ui->fileList->count(); i ++)
     {
         item = dynamic_cast<SelectItem *>(ui->fileList->item(i));
         image = QImage(item->path);
@@ -357,7 +380,7 @@ void BIR::setNewDimensions()
 
 QImage BIR::rotateImage(QImage* image)
 {
-    int deg = (ui->rotation->currentIndex() * 90);
+    unsigned int deg = (ui->rotation->currentIndex() * 90);
 
     QTransform transform;
     transform.rotate(deg);
@@ -464,4 +487,6 @@ void BIR::setupAspectRatio(bool pixelResize)
 void BIR::removeAll()
 {
     ui->removeAll->setEnabled(false);
+    ui->heightLabel->setText("");
+    ui->widthLabel->setText("");
 }

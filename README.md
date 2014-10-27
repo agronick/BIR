@@ -1,4 +1,5 @@
 # BIR 
+![Screenshot of BIR](https://raw.githubusercontent.com/agronick/BIR/master/bir_screenshot.png)
 
 ## Notes
 

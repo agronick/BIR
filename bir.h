@@ -6,7 +6,7 @@
 #define CRP_BOT_LEFT 3
 #define CRP_BOT_RIGHT 4
 
-#include <QtGui/QPushButton>
+#include <QPushButton>
 #include <QVector>
 #include <QMainWindow>
 #include <QFileInfo>

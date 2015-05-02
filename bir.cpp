@@ -60,11 +60,12 @@ void BIR::browseInput()
     if(dir.isEmpty())
         return;
 
-    ui->inputFile->setText(dir[0]);
+
 
     if(ui->outputFile->text() == "" && QDir(dir[0]).exists())
         ui->outputFile->setText(dir[0]);
 
+    bool isFile = false;
 
     for(QString item : dir)
     {
@@ -85,9 +86,17 @@ void BIR::browseInput()
                 }
             }
         }else{
+            //We'll hit this condition if the item is a file and not a folder
             QVector<QFileInfo> file;
             file.append(QFileInfo(item));
             this->populateLists(file);
+            isFile = true;
+        }
+        if(isFile)
+        {
+             ui->inputFile->setText(QString(""));
+        }else{
+             ui->inputFile->setText(dir[0]);
         }
     }
 }
@@ -119,15 +128,21 @@ QStringList BIR::browseDialog(bool isInput)
 {
     QFileDialog *dialog = new QFileDialog(this);
 
+    //If usedirectories is checked or selecting output folder then select filders
+    bool isFolder = ui->useDir->isChecked() || !isInput;
+    dialog->setFileMode(isFolder ? QFileDialog::Directory : QFileDialog::ExistingFiles);
 
-    dialog->setFileMode(ui->useDir->isChecked() || !isInput ? QFileDialog::Directory : QFileDialog::ExistingFiles);
-
-    int result = dialog->exec();
     QString path = (QDir(QDir::homePath() + "/Pictures").exists() ? QDir::homePath() + "/Pictures" : QDir::homePath());
-    dialog->setDirectory(path);
-
-
+    int result = 0;
     QStringList directory;
+
+    if(isFolder)
+    {
+        directory.append(dialog->getExistingDirectory(this, QString("Select a folder"), path, QFileDialog::ShowDirsOnly));
+    }else{
+        result = dialog->exec();
+    }
+
 
     if (result)
         directory = dialog->selectedFiles();
@@ -140,7 +155,13 @@ QStringList BIR::browseDialog(bool isInput)
 void BIR::populateLists(QVector<QFileInfo> items)
 {
     bool hasAsked = false;
-    QList<QByteArray> extensions = QImageWriter::supportedImageFormats() ;
+    QList<QByteArray> extensions_ba = QImageWriter::supportedImageFormats() ;
+
+    QList<QString> extensions = QList<QString>();
+    for(int i=0; i< extensions_ba.size(); ++i){
+        extensions.append(extensions_ba[i].constData());
+    }
+
 
     SelectItem *fileItem;
     for(int i = 0; i < items.count(); i++)
@@ -150,14 +171,14 @@ void BIR::populateLists(QVector<QFileInfo> items)
 
         if(!ui->dirStruct->isChecked())
         {
-            QList<QListWidgetItem*> list = ui->fileList->findItems(name, Qt::MatchContains);
+            QList<QListWidgetItem*> list = ui->fileList->findItems(name, Qt::MatchExactly);
             if(!list.empty())
             {
                 if(!hasAsked)
                 {
                     unsigned int ret = QMessageBox::question(this,
                                                     "Duplicate files",
-                                                    "You have more than one file of the same name. Would you like to preserve the directory structure so those files are not overwritten?",
+                                                    "You have more than one file of the same name of " + list.at(0)->text()  + ". Would you like to preserve the directory structure so those files are not overwritten?",
                                                     QMessageBox::Yes | QMessageBox::No);
                     hasAsked = true;
                     if(ret == QMessageBox::Yes)
@@ -172,7 +193,7 @@ void BIR::populateLists(QVector<QFileInfo> items)
             }
         }
 
-        if(extensions.contains(items.at(i).suffix().toLower().toAscii())) //Check if the item is not already there
+        if(extensions.contains(items.at(i).suffix().toLower())) //Check if the item is not already there
         {
                 fileItem = new SelectItem(path);
                 fileItem->setText(name);
@@ -312,6 +333,7 @@ void BIR::startResize()
 
     SelectItem * item;
     QImage image;
+    QDir directory;
     for(unsigned short i = 0; i < ui->fileList->count(); i ++)
     {
         item = dynamic_cast<SelectItem *>(ui->fileList->item(i));
@@ -347,6 +369,11 @@ void BIR::startResize()
         {
             continue;
         }else{
+            directory = QFileInfo(name).absoluteDir();
+            if(!directory.exists())
+                if(!QDir().mkpath(directory.path()))
+                    qDebug() << QString("Could not make " + directory.path());
+
             if(image.save(name, 0, 100))
                 goodCount++;
         }
@@ -461,8 +488,11 @@ int BIR::getDiffDirIndex()
     }
 
     //Rewind to the last diff directory
-    while(thisFile.at(limit).toAscii() != '/')
+    QChar slash = QChar('/');
+    while(thisFile.at(limit) != slash)
+    {
         limit--;
+    }
 
     return limit;
 }

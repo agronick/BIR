@@ -2,6 +2,7 @@
 ![Screenshot of BIR](https://raw.githubusercontent.com/agronick/BIR/master/bir_screenshot.png)
 
 ## Notes
+Now updated for Qt 5
 
 Simple graphical batch image resizer. Ability to resize, rotate,
 crop a series of images or directories containing images while 

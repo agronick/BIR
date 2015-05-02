@@ -61,5 +61,5 @@ int main(int argc, char *argv[])
 
 void printHelp()
 {
-   std::cout << QString("Usage kdre [FILE]... \nor kdre [DIRECTORY]...\nBatch image resizer. Allows you to supply a list of files or a directory and have\nall the images in it shrunk by a fixed amount or a percentage.\n\n").toAscii().data();
+   std::cout << QString("Usage kdre [FILE]... \nor kdre [DIRECTORY]...\nBatch image resizer. Allows you to supply a list of files or a directory and have\nall the images in it shrunk by a fixed amount or a percentage.\n\n").toStdString();
 }

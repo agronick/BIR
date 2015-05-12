@@ -22,7 +22,7 @@ Has the ability to resize the following image formats:
 
 ## Running
 
-Requires libqt4 or qt depending on the distro to run.
+Requires libqt5 or qt depending on the distro to run.
 
 To run simply type:
 
@@ -30,12 +30,12 @@ To run simply type:
 
 ## Compiling
 
-Requires gcc-c++ and ibqt4-devel to build
+Requires gcc-c++ and ibqt5-devel to build
 
 To build BIR follow these steps:
 
     $ git clone https://github.com/agronick/BIR.git
     $ cd BIR/build
-    $ qmake ../ # Or qmake-qt4 depending on system
+    $ qmake-qt5 ../ 
     $ make
     $ sudo make install

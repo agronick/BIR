@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QVector>
 #include <QMainWindow>
+#include <QLabel>
 #include <QFileInfo>
 #include "selectitem.h"
 
@@ -24,6 +25,7 @@ public:
     explicit BIR(QWidget *parent = 0);
     void populateLists(QVector<QFileInfo>);
     QVector<QFileInfo> buildListFromDir(QString);
+    bool slidersLinked = false;
     ~BIR();
 
 private:
@@ -39,6 +41,7 @@ private:
     void pixelOff(bool);
     int getDiffDirIndex();
     QString getItemSubdir(SelectItem*, int);
+    void sliderMovedSetText(QLabel*, int);
 
 private slots:
     void browseInput();
@@ -52,6 +55,7 @@ private slots:
     void startResize();
     void aspectRatioChange(int);
     void removeAll();
+    void toggleLinkedSliders();
 };
 
 

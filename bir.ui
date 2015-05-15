@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>690</width>
-    <height>592</height>
+    <height>639</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -272,10 +272,10 @@
        <enum>QLayout::SetFixedSize</enum>
       </property>
       <property name="topMargin">
-       <number>3</number>
+       <number>0</number>
       </property>
       <property name="bottomMargin">
-       <number>3</number>
+       <number>15</number>
       </property>
       <item>
        <widget class="QGroupBox" name="fileList_2">
@@ -399,15 +399,15 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
         <property name="minimumSize">
          <size>
-          <width>346</width>
-          <height>268</height>
+          <width>336</width>
+          <height>278</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -444,7 +444,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>150</y>
+            <y>170</y>
             <width>301</width>
             <height>22</height>
            </rect>
@@ -479,7 +479,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>180</y>
+            <y>200</y>
             <width>71</width>
             <height>16</height>
            </rect>
@@ -492,7 +492,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>80</y>
+            <y>100</y>
             <width>111</width>
             <height>16</height>
            </rect>
@@ -507,7 +507,7 @@
             <x>10</x>
             <y>30</y>
             <width>311</width>
-            <height>41</height>
+            <height>61</height>
            </rect>
           </property>
           <property name="frameShape">
@@ -517,15 +517,15 @@
            <enum>QFrame::Plain</enum>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="page">
            <widget class="QSlider" name="sizeSlider">
             <property name="geometry">
              <rect>
-              <x>10</x>
+              <x>60</x>
               <y>10</y>
-              <width>251</width>
+              <width>201</width>
               <height>20</height>
              </rect>
             </property>
@@ -556,6 +556,83 @@
             </property>
             <property name="buddy">
              <cstring>sizeSlider</cstring>
+            </property>
+           </widget>
+           <widget class="QSlider" name="sizeSlider2">
+            <property name="geometry">
+             <rect>
+              <x>60</x>
+              <y>40</y>
+              <width>201</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="value">
+             <number>99</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QLabel" name="sliderLabel2">
+            <property name="geometry">
+             <rect>
+              <x>270</x>
+              <y>40</y>
+              <width>41</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>100%</string>
+            </property>
+            <property name="buddy">
+             <cstring>sizeSlider2</cstring>
+            </property>
+           </widget>
+           <widget class="QToolButton" name="lockSize">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>20</y>
+              <width>31</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_12">
+            <property name="geometry">
+             <rect>
+              <x>130</x>
+              <y>0</y>
+              <width>59</width>
+              <height>15</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Width</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_13">
+            <property name="geometry">
+             <rect>
+              <x>130</x>
+              <y>30</y>
+              <width>59</width>
+              <height>15</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Height</string>
             </property>
            </widget>
           </widget>
@@ -621,7 +698,7 @@
           <property name="geometry">
            <rect>
             <x>160</x>
-            <y>130</y>
+            <y>150</y>
             <width>151</width>
             <height>20</height>
            </rect>
@@ -642,7 +719,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>200</y>
+            <y>220</y>
             <width>301</width>
             <height>22</height>
            </rect>
@@ -694,7 +771,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>100</y>
+            <y>120</y>
             <width>301</width>
             <height>22</height>
            </rect>
@@ -726,7 +803,7 @@
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>130</y>
+            <y>150</y>
             <width>131</width>
             <height>16</height>
            </rect>
@@ -755,7 +832,7 @@
           <property name="geometry">
            <rect>
             <x>160</x>
-            <y>180</y>
+            <y>200</y>
             <width>151</width>
             <height>20</height>
            </rect>
@@ -944,7 +1021,7 @@
      <x>0</x>
      <y>0</y>
      <width>690</width>
-     <height>19</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -974,8 +1051,8 @@
      <y>142</y>
     </hint>
     <hint type="destinationlabel">
-     <x>198</x>
-     <y>139</y>
+     <x>295</x>
+     <y>161</y>
     </hint>
    </hints>
   </connection>
@@ -986,12 +1063,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>445</x>
-     <y>249</y>
+     <x>533</x>
+     <y>288</y>
     </hint>
     <hint type="destinationlabel">
-     <x>447</x>
-     <y>271</y>
+     <x>653</x>
+     <y>310</y>
     </hint>
    </hints>
   </connection>
@@ -1002,8 +1079,8 @@
    <slot>clear()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>281</x>
-     <y>412</y>
+     <x>266</x>
+     <y>468</y>
     </hint>
     <hint type="destinationlabel">
      <x>279</x>

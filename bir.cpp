@@ -22,12 +22,15 @@ BIR::BIR(QWidget *parent) :
     connect(ui->pixelRadio, SIGNAL(released()), this, SLOT(pixelResize()));
     connect(ui->percentageRadio, SIGNAL(released()), this, SLOT(ratioResize()));
     connect(ui->sizeSlider, SIGNAL(valueChanged(int)),this, SLOT(sliderMoved(int)));
+    connect(ui->sizeSlider2, SIGNAL(valueChanged(int)),this, SLOT(sliderMoved(int)));
     connect(ui->resetList, SIGNAL(clicked()), this, SLOT(resetUi()));
     connect(ui->removeItem, SIGNAL(released()), this, SLOT(removeItem()));
     connect(ui->fileList, SIGNAL(currentRowChanged(int)), this, SLOT(selectImage()));
     connect(ui->startResize, SIGNAL(clicked()), this, SLOT(startResize()));
     connect(ui->aspectRatio, SIGNAL(currentIndexChanged(int)), this, SLOT(aspectRatioChange(int)));
     connect(ui->removeAll, SIGNAL(released()), this, SLOT(removeAll()));
+    connect(ui->lockSize, SIGNAL(released()), this, SLOT(toggleLinkedSliders()));
+
 
 
     ui->percentageRadio->click();
@@ -42,9 +45,12 @@ BIR::BIR(QWidget *parent) :
     ui->removeAll->setIcon(ButtonIcon);
     ui->removeAll->setIconSize(pixmap.rect().size());
 
+
     QIntValidator* numeric = new QIntValidator(0, 10000, this);
     ui->heightEdit->setValidator(numeric);
     ui->widthEdit->setValidator(numeric);
+
+    toggleLinkedSliders();
 }
 
 
@@ -77,7 +83,7 @@ void BIR::browseInput()
             {
                 int ret = QMessageBox::question(this,
                                                 "No Files Selected",
-                                                "You did not select any files. Did you want to include subdirectories?",
+                                                "We did not find any files. Did you want to include subdirectories?",
                                                 QMessageBox::Yes | QMessageBox::No);
                 if(ret == QMessageBox::Yes)
                 {
@@ -204,6 +210,7 @@ void BIR::populateLists(QVector<QFileInfo> items)
         ui->progressBar->setValue((i / (float)items.count()) * 100.0);
     }
     ui->progressBar->setValue(0);
+
 }
 
 
@@ -215,6 +222,7 @@ void BIR::pixelResize()
 void BIR::ratioResize()
 {
     pixelOff(false);
+    setupAspectRatio(!slidersLinked);
 }
 
 void BIR::pixelOff(bool on)
@@ -228,7 +236,23 @@ void BIR::pixelOff(bool on)
 
 void BIR::sliderMoved(int value)
 {
-    ui->sliderLabel->setText(QString::number(value).append("%"));
+    if(this->sender() == ui->sizeSlider || slidersLinked)
+    {
+        this->sliderMovedSetText(ui->sliderLabel, value);
+        if(slidersLinked && this->sender() == ui->sizeSlider2)
+            ui->sizeSlider->setValue(value);
+    }
+    if(this->sender() == ui->sizeSlider2 || slidersLinked)
+    {
+        this->sliderMovedSetText(ui->sliderLabel2, value);
+        if(slidersLinked && this->sender() == ui->sizeSlider)
+            ui->sizeSlider2->setValue(value);
+    }
+}
+
+void BIR::sliderMovedSetText(QLabel *label, int value)
+{
+    label->setText(QString::number(value).append("%"));
     selectImage();
 }
 
@@ -265,6 +289,7 @@ void BIR::removeItem()
     }
 }
 
+//Updates UI when image selection or attributes are changed
 void BIR::selectImage()
 {
     SelectItem * item = dynamic_cast<SelectItem *>(ui->fileList->currentItem());
@@ -291,9 +316,8 @@ void BIR::selectImage()
 
 void BIR::setNewDimensions(SelectItem* item)
 {
-    float ratio = ui->sizeSlider->value() * 0.01;
-    item->newWidth = (item->width() * ratio);
-    item->newHeight = (item->height() * ratio);
+    item->newWidth = (item->width() * (ui->sizeSlider->value() * 0.01));
+    item->newHeight = (item->height() * (ui->sizeSlider2->value() * 0.01));
 }
 
 void BIR::startResize()
@@ -497,6 +521,20 @@ int BIR::getDiffDirIndex()
     return limit;
 }
 
+void BIR::toggleLinkedSliders()
+{
+    slidersLinked = !slidersLinked;
+    QPixmap pixmap;
+    pixmap.load(QString(":/icon/") + QString((slidersLinked ? "link" : "broken-link")));
+    QIcon ButtonIcon(pixmap);
+    ui->lockSize->setIcon(ButtonIcon);
+    ui->lockSize->setIconSize(pixmap.rect().size());
+
+
+    setupAspectRatio(!slidersLinked);
+
+}
+
 void BIR::setupAspectRatio(bool pixelResize)
 {
     ui->aspectRatio->clear();
@@ -505,7 +543,6 @@ void BIR::setupAspectRatio(bool pixelResize)
         ui->aspectRatio->addItem("Ignore aspect ratio");
         ui->aspectRatio->addItem("Preserve aspect ratio inside dimensions");
         ui->aspectRatio->addItem("Preserve aspect ratio and crop");
-        ui->pixelRadio->setChecked(true);
         ui->aspectRatio->setDisabled(false);
     }else{
         ui->aspectRatio->addItem("Preserve aspect ratio");
